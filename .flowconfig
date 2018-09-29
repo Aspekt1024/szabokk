@@ -1,0 +1,13 @@
+[ignore]
+
+[include]
+
+[libs]
+flow-typed
+
+[lints]
+
+[options]
+module.name_mapper='^Components' -> '<PROJECT_ROOT>/src/Components'
+
+[strict]

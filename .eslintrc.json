@@ -1,0 +1,24 @@
+{
+	"extends": ["react-app", "jest-enzyme"],
+	"plugins": ["jest"],
+	"env": {
+		"jest": true,
+		"jest/globals": true
+	},
+	"rules": {
+		"semi": ["error", "never"],
+		"comma-dangle": [
+			"error",
+			{
+				"arrays": "never",
+				"objects": "never",
+				"imports": "never",
+				"exports": "never",
+				"functions": "never"
+			}
+    ],
+    "no-trailing-spaces": "error",
+		"object-curly-spacing": ["error", "always"],
+		"quotes": ["error", "single"]
+	}
+}
