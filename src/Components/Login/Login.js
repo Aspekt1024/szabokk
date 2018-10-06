@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
+import Credentials from './Credentials'
 
 export default class Login extends Component {
 
-    theUsername = 'user'
-    thePassword = 'pass'
+    credentials = new Credentials()
 
     constructor(props) {
         super(props)
@@ -51,27 +51,13 @@ export default class Login extends Component {
             return
         }
 
-        if (this.credentialsMatch()) {
+        if (this.credentials.PasswordMatches(this.state.userInput, this.state.passInput)) {
             this.setState({ loginMessage: 'Login Success!' })
             // not sure how to update the text on screen before logging in
-            this.handleLogin()
+            this.props.handleLogin()
         }
         else {
             this.setState({ loginMessage: 'Invalid Credentials' })
         }
-    }
-
-    credentialsMatch() {
-        if (this.theUsername !== this.state.userInput) {
-            return false
-        }
-        if (this.thePassword !== this.state.passInput) {
-            return false
-        }
-        return true
-    }
-
-    handleLogin() {
-        alert ('logging in...')
     }
 }
