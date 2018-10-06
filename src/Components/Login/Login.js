@@ -3,15 +3,14 @@ import Credentials from './Credentials'
 
 export default class Login extends Component {
 
-    credentials = new Credentials()
-
     constructor(props) {
         super(props)
 
         this.state = {
             userInput: '',
             passInput: '',
-            loginMessage: ''
+            loginMessage: '',
+            credentials: null
         }
     }
 
@@ -29,6 +28,10 @@ export default class Login extends Component {
                 {this.state.loginMessage}
             </form>
         )
+    }
+
+    componentDidMount = () => {
+        this.setState({ credentials: new Credentials() })
     }
 
     handleUserInputChange = (event) => {
@@ -51,7 +54,11 @@ export default class Login extends Component {
             return
         }
 
-        if (this.credentials.PasswordMatches(this.state.userInput, this.state.passInput)) {
+        if (this.state.credentials == null) {
+            return
+        }
+
+        if (this.state.credentials.PasswordMatches(this.state.userInput, this.state.passInput)) {
             this.setState({ loginMessage: 'Login Success!' })
             // not sure how to update the text on screen before logging in
             this.props.handleLogin()
