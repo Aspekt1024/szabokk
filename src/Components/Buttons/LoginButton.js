@@ -9,7 +9,7 @@ export default class LoginButton extends Component {
                 { this.props.isLoggedIn ?
                     <Button content='Logout' handleClick={this.props.handleLogout} />
                 :
-                    <Button content='Login' handleClick={this.props.requestLogin} />
+                    <Button content='Login' handleClick={this.props.handleSubmit} />
                 }
             </div>
         )

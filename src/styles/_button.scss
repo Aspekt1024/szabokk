@@ -1,18 +1,44 @@
-.kk-button {
-    background: rgb(2, 53, 25);
-    border: 1px solid #999;
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 34px;
-    height: 34px;
-    margin-right: -1px;
-    margin-top: -1px;
-    padding: 0;
-    text-align: center;
-    color: #999;
-    width: 80px;
+$btn-green: #2fc44f;
+$off-white: rgba(white, 0.4);
+
+@mixin btn-theme($btn-color) {
+    background-color: $btn-color;
+    border-color: darken($btn-color, 20%);
+    box-shadow: 0 .375em .313em -0.313em $off-white,
+                inset 0 .063em $off-white,
+                inset 0 -0.188em $off-white;
+
+    &:hover {
+        background-color: darken($btn-color, 6%);
+        box-shadow: .06em .06em rgba($btn-color,.4),
+                    inset 0 0.05em darken($btn-color, 40%), 
+                    inset 0.05em 0 darken($btn-color, 20%),
+                    inset -0.05em 0 darken($btn-color, 20%),
+                    inset 0 -0.05em darken($btn-color, 20%);
+    }
+    &:active {
+        box-shadow: .06em .06em rgba($btn-color,.4), 
+                    inset 0 0.19em darken($btn-color, 40%), 
+                    inset 0.19em 0 darken($btn-color, 20%),
+                    inset -0.01em 0 darken($btn-color, 20%),
+                    inset 0 -0.01em darken($btn-color, 20%);
+    }
 }
 
-.kk-button-logout {
-    background: rgb(0, 0, 0);
+.kk-button {
+    @include btn-theme($btn-green);
+    display: inline-block;
+    padding: .5em 1em;
+    border: .094em solid; 
+    border-radius: .625em;
+    color: #FFF;
+    text-shadow: 0 .063em #000;
+    cursor:pointer;
+    font: bold 1rem sans-serif;
+    user-select: none;
+    text: {
+        decoration: none;
+        transform: uppercase;
+        shadow: 0 0.063em rgba(0, 0, 0,.3);
+    }
 }

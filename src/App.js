@@ -8,8 +8,7 @@ class App extends Component {
     super(props)
 
     this.state = {
-      isLoggedIn: false,
-      loginRequested: false
+      isLoggedIn: false
     }
   }
 
@@ -19,12 +18,9 @@ class App extends Component {
 
         <Header isLoggedIn={this.state.isLoggedIn}
                 handleLogout={this.handleLogout}
-                requestLogin={this.requestLogin} />
+                handleLogin={this.handleLogin} />
 
-        <Main isLoggedIn={this.state.isLoggedIn}
-              loginRequested={this.state.loginRequested}
-              handleLogin={this.handleLogin}
-              handleLogout={this.handleLogout} />
+        <Main isLoggedIn={this.state.isLoggedIn} />
 
       </Fragment>
     )
@@ -32,15 +28,10 @@ class App extends Component {
 
   handleLogin = () => {
     this.setState({ isLoggedIn: true })
-    this.setState({ loginRequested: false })
   }
 
   handleLogout = () => {
     this.setState({ isLoggedIn: false })
-  }
-
-  requestLogin = () => {
-    this.setState({ loginRequested: true })
   }
 }
 

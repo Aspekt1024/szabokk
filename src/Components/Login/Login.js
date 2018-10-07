@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Credentials from './Credentials'
+import LoginButton from '../Buttons/LoginButton'
 
 export default class Login extends Component {
 
@@ -16,17 +17,20 @@ export default class Login extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                User:
-                <input type="text" value={this.state.userInput} onChange={this.handleUserInputChange} />
-                <br />
-                Pass:
-                <input type="password" value={this.state.passInput} onChange={this.handlePassInputChange} />
-                <input type="submit" value="Login"/>
-
-                <br />
+            <div>
+                {this.props.isLoggedIn ?
+                    <div>hello, user</div> //TODO create user variable
+                :
+                    <form onSubmit={this.handleSubmit}>
+                        User:
+                        <input type="text" value={this.state.userInput} onChange={this.handleUserInputChange} />
+                        Pass:
+                        <input type="password" value={this.state.passInput} onChange={this.handlePassInputChange} />
+                    </form>
+                }
+                <LoginButton isLoggedIn={this.props.isLoggedIn} handleSubmit={this.handleSubmit} handleLogin={this.props.handleLogin} handleLogout={this.props.handleLogout} />
                 {this.state.loginMessage}
-            </form>
+            </div>
         )
     }
 
@@ -44,7 +48,6 @@ export default class Login extends Component {
     handleSubmit = (event) => {
 
         event.preventDefault()
-
         if (this.state.userInput === '') {
             this.setState({ loginMessage: 'Username cannot be blank' })
             return
@@ -59,8 +62,9 @@ export default class Login extends Component {
         }
 
         if (this.state.credentials.PasswordMatches(this.state.userInput, this.state.passInput)) {
-            this.setState({ loginMessage: 'Login Success!' })
-            // not sure how to update the text on screen before logging in
+            this.setState({ loginMessage: '' })
+            this.setState({ userInput: '' })
+            this.setState({ passInput: '' })
             this.props.handleLogin()
         }
         else {
