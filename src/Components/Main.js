@@ -1,35 +1,22 @@
 import React, { Component } from 'react'
 import Login from './Login/Login'
 import User from './User'
+import Home from './Home'
 
 class Main extends Component {
-
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      isLoggedIn: false
-    }
-  }
 
   render() {
     return (
       <div>
-        {this.state.isLoggedIn ?
-          <User handleLogout={this.handleLogout.bind(this) } />
+        {this.props.isLoggedIn ?
+          <User handleLogout={this.props.handleLogout } />
+        : this.props.loginRequested ?
+          <Login handleLogin={this.props.handleLogin } />
         :
-          <Login handleLogin={this.handleLogin.bind(this) } />
+          <Home />
         }
       </div>
     )
-  }
-
-  handleLogin() {
-    this.setState({ isLoggedIn: true })
-  }
-
-  handleLogout() {
-    this.setState({ isLoggedIn: false })
   }
 }
 
