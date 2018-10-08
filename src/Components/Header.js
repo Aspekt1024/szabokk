@@ -17,6 +17,7 @@ class Header extends Component {
     return (
       <div className="header">
         Szabo KK 2018
+        <span>&nbsp;</span>
         <Login isLoggedIn={this.props.isLoggedIn} handleLogin={this.props.handleLogin} handleLogout={this.props.handleLogout} />
       </div>
     )

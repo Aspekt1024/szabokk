@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Credentials from './Credentials'
-import LoginButton from '../Buttons/LoginButton'
+import Button from '../Buttons/Button'
 
 export default class Login extends Component {
 
@@ -17,21 +17,36 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div>
+            <Fragment>
                 {this.props.isLoggedIn ?
-                    <div>hello, user</div> //TODO create user variable
+                    <label>hello, user</label> //TODO create user variable
                 :
-                    <form onSubmit={this.handleSubmit}>
-                        User:
-                        <input type="text" value={this.state.userInput} onChange={this.handleUserInputChange} />
-                        Pass:
-                        <input type="password" value={this.state.passInput} onChange={this.handlePassInputChange} />
-                    </form>
+                    <Fragment>
+                        <label>User:</label>
+                        <input type="text"
+                                value={this.state.userInput}
+                                onChange={this.handleUserInputChange}
+                                onKeyDown={this.submitOnEnterPressed} />
+
+                        <label>Pass:</label>
+                        <input type="password"
+                                value={this.state.passInput}
+                                onChange={this.handlePassInputChange}
+                                onKeyDown={this.submitOnEnterPressed} />
+                    </Fragment>
                 }
-                <LoginButton isLoggedIn={this.props.isLoggedIn} handleSubmit={this.handleSubmit} handleLogin={this.props.handleLogin} handleLogout={this.props.handleLogout} />
-                {this.state.loginMessage}
-            </div>
+                <Button content={this.props.isLoggedIn ? 'Logout' : 'Login' }
+                        handleClick={this.props.isLoggedIn ? this.props.handleLogout : this.props.handleSubmit}
+                />
+            </Fragment>
         )
+    }
+
+    submitOnEnterPressed = (e) => {
+        var enterKey = 13
+        if (e.keyCode === enterKey) {
+            this.checkCredentials()
+        }
     }
 
     componentDidMount = () => {
@@ -46,8 +61,11 @@ export default class Login extends Component {
     }
 
     handleSubmit = (event) => {
-
+        this.checkCredentials()
         event.preventDefault()
+    }
+
+    checkCredentials() {
         if (this.state.userInput === '') {
             this.setState({ loginMessage: 'Username cannot be blank' })
             return
