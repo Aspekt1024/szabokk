@@ -1,70 +1,56 @@
 import React, { Component } from 'react'
-import Credentials from './Credentials'
+import userDB from './userDb'
 
-export default class Login extends Component {
+class Login extends Component {
+  constructor() {
+    super()
+    this.state = { loggedIn: false }
+  }
 
-    constructor(props) {
-        super(props)
+  // the next two methods receive event infromation
+  // with different syntax. I like the first because
+  // it's more compact
+  handleUsernameChange = ({ target }) => {
+    this.setState({ username: target.value })
+  }
 
-        this.state = {
-            userInput: '',
-            passInput: '',
-            loginMessage: '',
-            credentials: null
-        }
+  handlePasswordChange = e => {
+    this.setState({ password: e.target.value })
+  }
+
+  handleSubmit = e => {
+    e.preventDefault()
+    if (this.validUserPass(this.state)) {
+      this.props.handleLogin(true)
+      this.setState({
+        loggedIn: true
+      })
     }
+  }
 
-    render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                User:
-                <input type="text" value={this.state.userInput} onChange={this.handleUserInputChange} />
-                <br />
-                Pass:
-                <input type="password" value={this.state.passInput} onChange={this.handlePassInputChange} />
-                <input type="submit" value="Login"/>
+  validUserPass = ({ username, password }) => username === 'user' && password === 'pass'
 
-                <br />
-                {this.state.loginMessage}
-            </form>
-        )
-    }
-
-    componentDidMount = () => {
-        this.setState({ credentials: new Credentials() })
-    }
-
-    handleUserInputChange = (event) => {
-        this.setState({ userInput: event.target.value })
-    }
-    handlePassInputChange = (event) => {
-        this.setState({ passInput: event.target.value })
-    }
-
-    handleSubmit = (event) => {
-
-        event.preventDefault()
-
-        if (this.state.userInput === '') {
-            this.setState({ loginMessage: 'Username cannot be blank' })
-            return
-        }
-        if (this.state.passInput === '') {
-            this.setState({ loginMessage: 'Password cannot be blank' })
-            return
-        }
-
-        if (this.state.credentials == null) {
-            return
-        }
-
-        if (this.state.credentials.PasswordMatches(this.state.userInput, this.state.passInput)) {
-            this.setState({ loginMessage: 'Login Success!' })
-            // not sure how to update the text on screen before logging in
-            this.props.handleLogin()
-        }
-        else {
-            this.setState({ loginMessage: 'Invalid Credentials' })
-        }
-    }
+  render() {
+    return (
+      <form className="login login-form">
+        <div className="login login-input">
+          <label>
+            Username:
+            <input type="text" name="username" onChange={this.handleUsernameChange} />
+          </label>
+          <label>
+            Password:
+            <input type="password" name="password" onChange={this.handlePasswordChange} />
+          </label>
+        </div>
+        <input
+          type="submit"
+          value={this.state.loggedIn ? 'Logout' : 'Login'}
+          onClick={this.handleSubmit}
+        />
+      </form>
+    )
+  }
 }
+
+export default Login

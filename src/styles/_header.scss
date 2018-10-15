@@ -1,4 +1,15 @@
 .header {
-	color: darkgreen;
+	color: #333;
+	display: flex;
+	justify-content: space-between;
+}
+
+.header-container {
+	padding-bottom: 5px;
 	border-bottom: 1px solid black;
+}
+
+.banner {
+	font-size: 32px;
+	align-items: center;
 }

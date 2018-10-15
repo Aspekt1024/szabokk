@@ -3,11 +3,22 @@ import Header from 'Components/Header'
 import Main from 'Components/Main'
 
 class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      loggedIn: false
+    }
+  }
+
+  handleLogin = loggedIn => {
+    this.setState({ loggedIn })
+  }
+
   render() {
     return (
       <Fragment>
-        <Header />
-        <Main />
+        <Header handleLogin={this.handleLogin} />
+        <Main loggedIn={this.state.loggedIn} />
       </Fragment>
     )
   }

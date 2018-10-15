@@ -1,35 +1,13 @@
 import React, { Component } from 'react'
-import Login from './Login/Login'
-import User from './User'
 
 class Main extends Component {
-
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      isLoggedIn: false
-    }
-  }
-
   render() {
     return (
       <div>
-        {this.state.isLoggedIn ?
-          <User handleLogout={this.handleLogout.bind(this) } />
-        :
-          <Login handleLogin={this.handleLogin.bind(this) } />
-        }
+        <h1>Main</h1>
+        <span className="main-status">{this.props.loggedIn ? 'Logged in' : 'Logged out'}</span>
       </div>
     )
-  }
-
-  handleLogin() {
-    this.setState({ isLoggedIn: true })
-  }
-
-  handleLogout() {
-    this.setState({ isLoggedIn: false })
   }
 }
 
