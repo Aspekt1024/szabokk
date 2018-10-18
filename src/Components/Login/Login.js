@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import Credentials from './Credentials'
+import Button from '../Buttons/Button'
 
 export default class Login extends Component {
 
@@ -16,18 +17,36 @@ export default class Login extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                User:
-                <input type="text" value={this.state.userInput} onChange={this.handleUserInputChange} />
-                <br />
-                Pass:
-                <input type="password" value={this.state.passInput} onChange={this.handlePassInputChange} />
-                <input type="submit" value="Login"/>
+            <Fragment>
+                {this.props.isLoggedIn ?
+                    <label>hello, user</label> //TODO create user variable
+                :
+                    <Fragment>
+                        <label>User:</label>
+                        <input type="text"
+                                value={this.state.userInput}
+                                onChange={this.handleUserInputChange}
+                                onKeyDown={this.submitOnEnterPressed} />
 
-                <br />
-                {this.state.loginMessage}
-            </form>
+                        <label>Pass:</label>
+                        <input type="password"
+                                value={this.state.passInput}
+                                onChange={this.handlePassInputChange}
+                                onKeyDown={this.submitOnEnterPressed} />
+                    </Fragment>
+                }
+                <Button content={this.props.isLoggedIn ? 'Logout' : 'Login' }
+                        handleClick={this.props.isLoggedIn ? this.props.handleLogout : this.props.handleSubmit}
+                />
+            </Fragment>
         )
+    }
+
+    submitOnEnterPressed = (e) => {
+        var enterKey = 13
+        if (e.keyCode === enterKey) {
+            this.checkCredentials()
+        }
     }
 
     componentDidMount = () => {
@@ -42,9 +61,11 @@ export default class Login extends Component {
     }
 
     handleSubmit = (event) => {
-
+        this.checkCredentials()
         event.preventDefault()
+    }
 
+    checkCredentials() {
         if (this.state.userInput === '') {
             this.setState({ loginMessage: 'Username cannot be blank' })
             return
@@ -59,8 +80,9 @@ export default class Login extends Component {
         }
 
         if (this.state.credentials.PasswordMatches(this.state.userInput, this.state.passInput)) {
-            this.setState({ loginMessage: 'Login Success!' })
-            // not sure how to update the text on screen before logging in
+            this.setState({ loginMessage: '' })
+            this.setState({ userInput: '' })
+            this.setState({ passInput: '' })
             this.props.handleLogin()
         }
         else {
