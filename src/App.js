@@ -1,24 +1,37 @@
 import React, { Component, Fragment } from 'react'
 import Header from 'Components/Header'
 import Main from 'Components/Main'
+import User from 'Components/Objects/User'
+import KKApi from 'Components/API/KKApi'
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
-      loggedIn: false
+      isLoggedIn: false,
+      api: new KKApi(),
+      currentUser: new User(),
+      assignedKK: new User()
     }
   }
 
-  handleLogin = loggedIn => {
-    this.setState({ loggedIn })
+  setLoggedIn = (isLoggedIn) => {
+    this.setState({ isLoggedIn })
   }
 
   render() {
     return (
       <Fragment>
-        <Header handleLogin={this.handleLogin} />
-        <Main loggedIn={this.state.loggedIn} />
+
+        <Header
+          isLoggedIn={this.state.isLoggedIn}
+          setLoggedIn={this.setLoggedIn}
+          api={this.state.api} />
+
+        <Main
+          isLoggedIn={this.state.isLoggedIn}
+          api={this.state.api} />
+
       </Fragment>
     )
   }

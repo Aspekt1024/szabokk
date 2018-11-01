@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
+import Signup from 'Components/UserAuthorization/Signup'
 
 class Main extends Component {
   render() {
     return (
-      <div>
+      <div className="main-status">
         <h1>Main</h1>
-        <span className="main-status">{this.props.loggedIn ? 'Logged in' : 'Logged out'}</span>
+        {this.props.isLoggedIn ?
+          <div>logged in</div>
+        :
+          <div>
+            <Signup api={ this.props.api } />
+          </div>
+        }
       </div>
     )
   }

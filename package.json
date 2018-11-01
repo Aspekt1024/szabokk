@@ -1,5 +1,5 @@
 {
-	"name": "shopping",
+	"name": "kkapp",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
@@ -31,6 +31,7 @@
 		"flow-bin": "^0.81.0",
 		"fs-extra": "3.0.1",
 		"html-webpack-plugin": "2.29.0",
+		"https": "^1.0.0",
 		"jest": "20.0.4",
 		"jest-enzyme": "^6.1.2",
 		"node-sass": "^4.9.2",
