@@ -30,8 +30,9 @@ class KKApi {
         )
     }
 
-    gotTokenCallback = (token) => {
-        this.state.token = token
+    gotTokenCallback = (result) => {
+        var json = JSON.parse(result)
+        this.state.token = json.token
     }
 }
 

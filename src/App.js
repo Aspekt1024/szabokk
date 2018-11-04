@@ -4,6 +4,13 @@ import Main from 'Components/Main'
 import User from 'Components/Objects/User'
 import KKApi from 'Components/API/KKApi'
 
+// TODO figure out how to use these everywhere
+const Views = {
+  Home: 'home',
+  Wishlist: 'wishlist',
+  Settings: 'settings'
+}
+
 class App extends Component {
   constructor() {
     super()
@@ -11,12 +18,21 @@ class App extends Component {
       isLoggedIn: false,
       api: new KKApi(),
       currentUser: new User(),
-      assignedKK: new User()
+      assignedKK: new User(),
+      currentView: Views.Home
     }
   }
 
-  setLoggedIn = (isLoggedIn) => {
+  setLoggedIn = (isLoggedIn, currentUser = null) => {
     this.setState({ isLoggedIn })
+
+    if (isLoggedIn && currentUser != null) {
+      this.setState({ currentUser })
+    }
+  }
+
+  navigateToPage = (page) => {
+    this.setState({ currentView: page })
   }
 
   render() {
@@ -24,13 +40,11 @@ class App extends Component {
       <Fragment>
 
         <Header
-          isLoggedIn={this.state.isLoggedIn}
+          appState={this.state}
           setLoggedIn={this.setLoggedIn}
-          api={this.state.api} />
+          navigateToPage={this.navigateToPage} />
 
-        <Main
-          isLoggedIn={this.state.isLoggedIn}
-          api={this.state.api} />
+        <Main appState={this.state} />
 
       </Fragment>
     )

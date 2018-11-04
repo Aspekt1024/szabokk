@@ -29,7 +29,8 @@ class Login extends Component {
       return
     }
 
-    if (this.props.isLoggedIn) {
+    var isLoggedIn = this.props.appState.isLoggedIn
+    if (isLoggedIn) {
       this.setLoggedOut()
     } else {
       var loginDetailsStatus = this.checkLoginDetails(this.state.loginDetails)
@@ -38,15 +39,19 @@ class Login extends Component {
         return
       }
       this.setState({ isLoading: true })
-      this.props.api.requestLogin(this.state.loginDetails, this.gotLoginResponse, this.gotLoginError)
+      var api = this.props.appState.api
+      api.requestLogin(this.state.loginDetails, this.gotLoginResponse, this.gotLoginError)
     }
   }
 
   render() {
+    var isLoggedIn = this.props.appState.isLoggedIn
+    var user = this.props.appState.currentUser
+
     return (
       <form className="login login-form">
-        { this.props.isLoggedIn ?
-          <div>Hello, user</div>
+        { isLoggedIn ?
+          <div>Hello, {user.username}</div>
         :
         <div className="login login-input">
           <label>
@@ -62,7 +67,7 @@ class Login extends Component {
         <input
           type="submit"
           className="button"
-          value={this.props.isLoggedIn ? 'Logout' : 'Login'}
+          value={isLoggedIn ? 'Logout' : 'Login'}
           onClick={this.handleSubmit}
         />
         <label>{this.state.isLoading ? 'loading' : 'idle'}</label>
@@ -71,18 +76,21 @@ class Login extends Component {
   }
 
   setLoggedOut() {
-    this.setState({ username: '' })
-    this.setState({ password: '' })
+    this.setState({ loginDetails: new LoginDetails() })
     this.setState({ isLoggedIn: false })
     this.props.setLoggedIn(false)
   }
 
   gotLoginResponse = (message, error) => {
     if (error === ''){
-        this.props.setLoggedIn(true)
+        var json = JSON.parse(message)
+        var user = this.props.appState.currentUser
+        user.username = json.username
+        user.email = json.email
+        this.props.setLoggedIn(true, user)
     }
     else {
-        this.gotError(new Error(message))
+        this.gotLoginError(new Error(message))
     }
     this.setState({ isLoading: false })
 }

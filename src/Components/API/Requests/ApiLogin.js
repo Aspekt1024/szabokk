@@ -32,19 +32,15 @@ class ApiLogin {
     }
 
     processData = (data, gotDataCallback, gotTokenCallback) => {
-        var message = ''
-        var err = ''
+        var message = data.body
+        var err = data.status
+
         switch(data.status) {
             case '200':
                 gotTokenCallback(data.body)
-                break
-            case '401':
-                err = data.status
-                message = data.body
+                err = ''
                 break
             default:
-                err = data.status
-                message = data.body
                 break
         }
         gotDataCallback(message, err)
