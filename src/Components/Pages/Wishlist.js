@@ -28,6 +28,11 @@ class Wishlist extends Component {
     }
 
     componentDidMount() {
+        var username = this.props.appState.currentUser.username
+        if (username == null || username === '') {
+            return
+        }
+
         this.setState({ isLoading: true })
         var api = this.props.appState.api
         api.getWishlist(this.props.appState.currentUser.username, this.gotResponse, this.gotError)

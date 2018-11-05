@@ -28,6 +28,8 @@ class App extends Component {
 
     if (isLoggedIn && currentUser != null) {
       this.setState({ currentUser })
+    } else if (!isLoggedIn) {
+      this.setState({ currentUser: new User() })
     }
   }
 
