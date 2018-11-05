@@ -9,5 +9,6 @@ flow-typed
 
 [options]
 module.name_mapper='^Components' -> '<PROJECT_ROOT>/src/Components'
+module.name_mapper='^Objects' -> '<PROJECT_ROOT>/src/Objects'
 
 [strict]

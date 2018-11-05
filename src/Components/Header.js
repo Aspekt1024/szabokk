@@ -6,14 +6,24 @@ class Header extends Component {
     return (
       <div className="header header-container">
         <span className="header banner">Szabo KK 2018</span>
+        <div>
+          <div className='button kk-button' onClick={this.gotoHome}>
+              home
+          </div>
+        </div>
 
         {this.props.appState.isLoggedIn ?
           <div className='button kk-button' onClick={this.gotoWishlist}>
             wishlist
           </div>
         :
-          <div className='button kk-button' onClick={this.gotoSignup}>
-            sign up
+          <div>
+            <div className='button kk-button' onClick={this.gotoSignup}>
+              sign up
+            </div>
+            <div className='button kk-button' onClick={this.gotoWishlist}>
+              wishlist
+            </div>
           </div>
         }
 
@@ -32,6 +42,11 @@ class Header extends Component {
   gotoSignup = e => {
     e.preventDefault()
     this.props.navigateToPage('signup')
+  }
+
+  gotoHome = e => {
+    e.preventDefault()
+    this.props.navigateToPage('home')
   }
 }
 

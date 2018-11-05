@@ -1,5 +1,6 @@
 import ApiLogin from './Requests/ApiLogin'
 import ApiSignup from './Requests/ApiSignup'
+import ApiGetWishlist from './Requests/ApiGetWishlist'
 
 const API_URL = 'https://41b50mfzy7.execute-api.ap-southeast-2.amazonaws.com/dev'
 
@@ -9,7 +10,8 @@ class KKApi {
         this.state = {
             token: '',
             loginHandler: new ApiLogin(API_URL),
-            signupHandler: new ApiSignup(API_URL)
+            signupHandler: new ApiSignup(API_URL),
+            getWishlistHandler: new ApiGetWishlist(API_URL)
         }
     }
 
@@ -25,6 +27,15 @@ class KKApi {
     requestSignup = (signupDetails, gotDataCallback, gotErrorCallback) => {
         this.state.signupHandler.attemptSignup(
             signupDetails,
+            gotDataCallback,
+            gotErrorCallback
+        )
+    }
+
+    getWishlist = (username, gotDataCallback, gotErrorCallback) => {
+        this.state.getWishlistHandler.attemptGetWishlist(
+            username,
+            this.state.token,
             gotDataCallback,
             gotErrorCallback
         )

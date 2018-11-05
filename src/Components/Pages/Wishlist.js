@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import WishlistItem from 'Components/Objects/WishlistItem'
+import WishlistItem from 'Components/Wishlist/WishlistItem'
 
 class Wishlist extends Component {
 
@@ -7,9 +7,7 @@ class Wishlist extends Component {
         super(props)
 
         this.state = {
-            item1: new WishlistItem(),
-            item2: new WishlistItem(),
-            item3: new WishlistItem()
+            isLoading: false
         }
     }
 
@@ -18,24 +16,36 @@ class Wishlist extends Component {
             <div>
                 Wishlist for {this.props.appState.currentUser.username}
                 <form>
-                    <label>Item 1:</label>
-                    <input type='input' /><br />
-                    <label>Link</label>
-                    <input type='input' /><br />
+                    <WishlistItem itemNumber='1'/>
                     <br />
-                    <label>Item 2:</label>
-                    <input type='input' /><br />
-                    <label>Link</label>
-                    <input type='input' /><br />
+                    <WishlistItem itemNumber='2'/>
                     <br />
-                    <label>Item 3:</label>
-                    <input type='input' /><br />
-                    <label>Link</label>
-                    <input type='input' />
-
+                    <WishlistItem itemNumber='3'/>
+                    <br />
                 </form>
             </div>
         )
+    }
+
+    componentDidMount() {
+        this.setState({ isLoading: true })
+        var api = this.props.appState.api
+        api.getWishlist(this.props.appState.currentUser.username, this.gotResponse, this.gotError)
+    }
+
+    gotResponse = (message, err) => {
+        this.setState({ isLoading: false })
+        if (err === '') {
+            var json = JSON.parse(message)
+            alert(json)
+        } else {
+            this.gotError(err)
+        }
+    }
+
+    gotError = (err) => {
+        this.setState({ isLoading: false })
+        alert(err)
     }
 }
 

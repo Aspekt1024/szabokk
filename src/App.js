@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import Header from 'Components/Header'
 import Main from 'Components/Main'
-import User from 'Components/Objects/User'
+import User from './Objects/User'
 import KKApi from 'Components/API/KKApi'
 
 // TODO figure out how to use these everywhere

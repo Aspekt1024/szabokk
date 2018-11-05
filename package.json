@@ -87,7 +87,8 @@
 		],
 		"moduleNameMapper": {
 			"^react-native$": "react-native-web",
-			"^Components/(.*)$": "<rootDir>/src/Components/$1"
+			"^Components/(.*)$": "<rootDir>/src/Components/$1",
+			"^Objects/(.*)$": "<rootDir>/src/Objects/$1"
 		},
 		"moduleFileExtensions": [
 			"web.js",
