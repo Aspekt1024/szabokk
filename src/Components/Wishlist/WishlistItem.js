@@ -1,55 +1,93 @@
 import React, { Component } from 'react'
-import WishlistItemData from '../../Objects/WishlistItemData'
 
 class WishlistItem extends Component {
 
     constructor(props) {
         super(props)
 
-        var item = new WishlistItemData()
-        item.item = 'test item'
-        item.link = 'http://google.com'
-        item.comment = 'this is a test item'
-
         this.state = {
-            item: new WishlistItemData()
+            isUserUpdating: false,
+            itemDetails : {
+                username: '',
+                number: '',
+                item: '',
+                link: '',
+                comment: ''
+            }
         }
     }
 
     render() {
+        var storedDetails = this.props.itemDetails
+        var editDetails = this.state.itemDetails
         return (
-            <form onSubmit={this.handleSubmit}>
-                <label>Item {this.props.itemNumber}: </label>
-                <input type='input' onChange={this.handleItemChange} value={this.state.item.item} /><br />
-                <label>Link: </label>
-                <input type='input' onChange={this.handleLinkChange} value={this.state.item.link} /><br />
-                <label>Comments: </label>
-                <input type='input' onChange={this.handleCommentChange} value={this.state.item.comment} /><br />
+            <form className='main-status'>
+                <div>
+                    <label>Item {this.props.itemNumber}: </label><br />
+                    <label>Link: </label><br />
+                    <label>Comments: </label><br />
+                </div>
+                {this.state.isUserUpdating ?
+                    <div>
+                        <div>
+                            <input type='input' value={editDetails.item} onChange={this.handleItemChange} /><br />
+                            <input type='input' value={editDetails.link} onChange={this.handleLinkChange} /><br />
+                            <input type='input' value={editDetails.comment} onChange={this.handleCommentChange} /><br />
+                        </div>
+                        <div>
+                            <input type='submit' value='Save' onClick={this.handleSaveClicked} />
+                            <input type='submit' value='Cancel' onClick={this.handleCancelClicked} />
+                        </div>
+                    </div>
+                :
+                    <div>
+                        <div>
+                            {storedDetails.item}<br />
+                            {storedDetails.link}<br />
+                            {storedDetails.comment}<br />
+                        </div>
+                        <div>
+                            <input type='submit' value='Edit' onClick={this.handleEditClicked} />
+                        </div>
+                    </div>
+                }
             </form>
         )
     }
 
-    handleSubmit = e => {
+    handleEditClicked = e => {
         e.preventDefault()
-
+        this.setState({ isUserUpdating: true })
+        this.setState({ itemDetails: this.props.itemDetails })
     }
 
-    handleItemChange = ({ itemText }) => {
-        var item = this.state.item
-        item.item = itemText
-        this.setState({ item: item })
+    handleSaveClicked = e => {
+        e.preventDefault()
+        this.setState({ isUserUpdating: false })
+        this.props.handleItemUpdate(this.state.itemDetails)
     }
 
-    handleLinkChange = ({ itemText }) => {
-        var item = this.state.item
-        item.link = itemText
-        this.setState({ item: item })
+    handleCancelClicked = e => {
+        e.preventDefault()
+        this.setState({ isUserUpdating: false })
     }
 
-    handleCommentChange = ({ itemText }) => {
-        var item = this.state.item
-        item.comment = itemText
-        this.setState({ item: item })
+    handleItemChange = ({ target }) => {
+        var item = this.state.itemDetails
+        item.item = target.value
+        this.setState({ itemDetails: item })
+    }
+
+    handleLinkChange = ({ target }) => {
+        var item = this.state.itemDetails
+        item.link = target.value
+        this.setState({ itemDetails: item })
+    }
+
+    handleCommentChange = ({ target }) => {
+        var item = this.state.itemDetails
+        item.comment = target.value
+        this.setState({ itemDetails: item })
     }
 }
 export default WishlistItem

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Home from 'Components/Pages/Home'
 import Signup from 'Components/UserAuthorization/Signup'
-import Wishlist from 'Components/Pages/Wishlist'
+import Wishlist from 'Components/Wishlist/Wishlist'
 
 class Main extends Component {
   render() {

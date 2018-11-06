@@ -1,6 +1,9 @@
 import ApiLogin from './Requests/ApiLogin'
 import ApiSignup from './Requests/ApiSignup'
 import ApiGetWishlist from './Requests/ApiGetWishlist'
+import ApiUpdateWishlist from './Requests/ApiUpdateWishlist'
+
+import WishlistDetails from './Requests/Models/WishlistDetails'
 
 const API_URL = 'https://41b50mfzy7.execute-api.ap-southeast-2.amazonaws.com/dev'
 
@@ -11,7 +14,8 @@ class KKApi {
             token: '',
             loginHandler: new ApiLogin(API_URL),
             signupHandler: new ApiSignup(API_URL),
-            getWishlistHandler: new ApiGetWishlist(API_URL)
+            getWishlistHandler: new ApiGetWishlist(API_URL),
+            updateItemHandler: new ApiUpdateWishlist(API_URL)
         }
     }
 
@@ -37,6 +41,24 @@ class KKApi {
             username,
             this.state.token,
             gotDataCallback,
+            gotErrorCallback
+        )
+    }
+
+    updateWishlistItem = (itemDetails, gotSuccessCallback, gotErrorCallback) => {
+        var data = new WishlistDetails(
+            itemDetails.username,
+            itemDetails.number
+        )
+
+        data.item = itemDetails.item
+        data.link = itemDetails.link
+        data.comment = itemDetails.comment
+
+        this.state.updateItemHandler.attemptUpdateWishlist(
+            data,
+            this.state.token,
+            gotSuccessCallback,
             gotErrorCallback
         )
     }

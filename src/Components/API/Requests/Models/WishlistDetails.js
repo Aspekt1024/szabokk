@@ -6,13 +6,18 @@ class WishlistDetails {
     link = ''
     comment = ''
 
+    constructor(username, itemNumber) {
+        this.username = username
+        this.number = itemNumber
+    }
+
     getJSON() {
         return JSON.stringify({
             username: this.username,
             number: this.number,
-            item = this.item,
-            link = this.link,
-            comment = this.comment
+            item: this.item,
+            link: this.link,
+            comment: this.comment
         })
     }
 }
