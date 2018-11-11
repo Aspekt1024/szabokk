@@ -18,15 +18,6 @@ class Wishlist extends Component {
                 new WishlistDetails(username, 3)
             ]
         }
-
-        var details = this.state.wishlist[0]
-        details.item = 'test item'
-        details.link = 'https://www.youtube.com/watch?v=gbf0mypLtXA&index=9&list=PLRps6yTcWQbpoqIOCmqMeI1HLnLIRmO_t'
-        details.comment = 'this is a commnet'
-
-        var wishlist = this.state.wishlist
-        wishlist[0] = details
-        this.setState({ wishlist: wishlist })
     }
 
     render() {

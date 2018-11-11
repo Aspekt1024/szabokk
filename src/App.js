@@ -22,22 +22,67 @@ class App extends Component {
       isLoggedIn: false,
       api: new KKApi(),
       currentUser: new User(),
-      assignedKK: new User(),
-      currentView: Views.Login
+      assignmentDetails: {
+        assignedKK: new User(),
+        isAssignmentPending: true,
+        isAssignmentError: false,
+        isAssignmentLoaded: false
+      },
+      currentView: Views.Home
     }
   }
 
-  setLoggedIn = (isLoggedIn, currentUser) => {
-    this.setState({ isLoggedIn, currentUser })
+  setLoggedIn = (currentUser) => {
+    this.setState({ isLoggedIn: true, currentUser })
     this.navigateToPage('home')
+    this.getAssignedKK()
   }
 
   setLoggedOut = () => {
-    this.setState({ isLoggedIn: false, currentUser: new User() })
+    this.setState({
+      isLoggedIn: false,
+      currentUser: new User()
+     })
+     this.navigateToPage('home')
   }
 
   navigateToPage = (page) => {
     this.setState({ currentView: page })
+  }
+
+  // TODO move to separate function
+  getAssignedKK = () => {
+    this.state.api.getAssignment(
+      this.state.currentUser.username,
+      this.gotAssignmentResponse,
+      this.gotAssignmentError
+    )
+  }
+
+  gotAssignmentResponse = (message, err) => {
+    var assignmentDetails = this.state.assignmentDetails
+    if (err == null || err === '') {
+      var assignedKK = assignmentDetails.assignedKK
+      assignedKK.username = message
+      assignmentDetails.assignedKK = assignedKK
+    } else {
+      this.gotAssignmentError(err)
+    }
+    if (err !== '202') {
+      assignmentDetails.isAssignmentPending = false
+    }
+    assignmentDetails.isAssignmentLoaded = true
+    this.setState({ assignmentDetails: assignmentDetails })
+  }
+
+  gotAssignmentError = (err) => {
+    var assignmentDetails = this.state.assignmentDetails
+    assignmentDetails.isAssignmentError = true
+    assignmentDetails.isAssignmentLoaded = true
+    if (err !== '202') {
+      assignmentDetails.isAssignmentPending = false
+    }
+    this.setState({ assignmentDetails: assignmentDetails })
   }
 
   render() {

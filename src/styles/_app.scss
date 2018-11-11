@@ -5,6 +5,7 @@ body {
     background-color: #921c1c;
     background-image: url('../Images/bg06.jpg');
     background-size: 2048px;
+    background-position-x: center;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -27,3 +28,10 @@ a {
     color: blue;
     text-decoration: underline;
 }
+
+.kk-text {
+    font-size: 1.3rem;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 0px;
+    margin-bottom: 30px;
+  }

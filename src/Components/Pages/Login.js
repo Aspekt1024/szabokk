@@ -55,7 +55,7 @@ class Login extends Component {
           value='Login'
           onClick={this.handleSubmit}
         />
-        <a className='form-text' onClick={this.navigateToSignup}>or, signup here!</a>
+        <a className='form-text' onClick={this.navigateToSignup}>Haven't signed up yet?<br />Sign up here!</a>
       </form>
     )
   }
@@ -76,7 +76,7 @@ class Login extends Component {
         var user = this.props.appState.currentUser
         user.username = json.username
         user.email = json.email
-        this.props.setLoggedIn(true, user)
+        this.props.setLoggedIn(user)
     }
     else {
         this.gotLoginError(error)

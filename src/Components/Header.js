@@ -11,14 +11,14 @@ class Header extends Component {
           <Button onClick={this.gotoHome} content="home" />
           {this.props.appState.isLoggedIn ?
             <Fragment>
-              <Button onClick={this.gotoWishlist} content="wishlist" />
-              <Button onClick={this.gotoMyKK} content="mykk" />
+              <Button onClick={this.gotoWishlist} content="my wishlist" />
+              <Button onClick={this.gotoMyKK} content="my kk" />
               <Button onClick={this.handleLogout} content="logout" />
             </Fragment>
           :
             <Fragment>
               <Button onClick={this.gotoLogin} content="login" />
-              <Button onClick={this.gotoSignup} content="signup" />
+              <Button onClick={this.gotoSignup} content="sign up" />
             </Fragment>
           }
         </div>

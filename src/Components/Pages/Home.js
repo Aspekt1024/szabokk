@@ -7,16 +7,48 @@ export default class Home extends Component {
         var user = this.props.appState.currentUser
 
         return (
-            <Fragment>
-                <span>Home page</span>
-                <div>
-                    {isLoggedIn ?
-                        <div>you're logged in as {user.username} ({user.email})</div>
-                    :
-                        <div>you're not logged in. Login or signup now! (provide links)</div>
-                    }
-                </div>
-            </Fragment>
+            <form className='kk-form'>
+                <h1>Szabo KK 2018</h1>
+                {isLoggedIn ?
+                    <Fragment>
+                        <div className='kk-text'>
+                            Hey, {user.username}!<br />
+                            Welcome to the Szabo KK App for 2018!
+                        </div>
+                        <input type='submit' class='kk-button' value='My Wishlist' onClick={this.navigateToWishlist} />
+                        <input type='submit' class='kk-button' value='My KK' onClick={this.navigateToMyKK} />
+                    </Fragment>
+                :
+                    <Fragment>
+                        <div className='kk-text'>
+                            Welcome to the Szabo 2018 KK App!<br />
+                            Login or Sign up to continue
+                        </div>
+                        <input type='submit' class='kk-button' value='Login' onClick={this.navigateToLogin} />
+                        <input type='submit' class='kk-button' value='Sign up' onClick={this.navigateToSignup} />
+                    </Fragment>
+                }
+            </form>
         )
+    }
+
+    navigateToLogin = e => {
+        e.preventDefault()
+        this.props.navigateToPage('login')
+    }
+
+    navigateToSignup = e => {
+        e.preventDefault()
+        this.props.navigateToPage('signup')
+    }
+
+    navigateToWishlist = e => {
+        e.preventDefault()
+        this.props.navigateToPage('wishlist')
+    }
+
+    navigateToMyKK = e => {
+        e.preventDefault()
+        this.props.navigateToPage('mykk')
     }
 }
