@@ -95,6 +95,14 @@ class WishlistItem extends Component {
         e.preventDefault()
         if (!this.props.appState.isLoggedIn) return
 
+        var pattern = /https?:\/\/\w+.\w+/g
+        var details = this.state.itemDetails
+        var found = details.link.match(pattern)
+        if (found == null || found ==='') {
+            details.link = 'http://' + details.link
+            this.setState({ itemDetails: details })
+        }
+
         this.setState({ isSaving: true })
         var api = this.props.appState.api
         api.updateWishlistItem(this.state.itemDetails, this.gotUpdateResponse, this.gotUpdateError)
