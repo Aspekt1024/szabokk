@@ -34,7 +34,7 @@
         padding: 0px;
     }
 
-    .kk-button {
+    .kk-button, .kk-button-disabled {
         margin-bottom: 0px;
         margin-top: 10px;
     }
@@ -52,7 +52,7 @@
     align-content: space-between;
     align-self: center;
 
-    .kk-button {
+    .kk-button, .kk-button-disabled {
         width: 120px;
     }
 }

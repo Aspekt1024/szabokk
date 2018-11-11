@@ -43,21 +43,21 @@ class Wishlist extends Component {
                         <br />
                         <WishlistItem
                             isEditable={true}
-                            api={this.props.appState.api}
+                            appState={this.props.appState}
                             itemDetails={this.state.wishlist[0]}
-                            handleItemUpdate={this.handleItemUpdate}
+                            handleItemUpdate={this.populateItem}
                             isWishlistUpdating={this.state.isRequestingUpdate} />
                         <WishlistItem
                             isEditable={true}
-                            api={this.props.appState.api}
+                            appState={this.props.appState}
                             itemDetails={this.state.wishlist[1]}
-                            handleItemUpdate={this.handleItemUpdate}
+                            handleItemUpdate={this.populateItem}
                             isWishlistUpdating={this.state.isRequestingUpdate} />
                         <WishlistItem
                             isEditable={true}
-                            api={this.props.appState.api}
+                            appState={this.props.appState}
                             itemDetails={this.state.wishlist[2]}
-                            handleItemUpdate={this.handleItemUpdate}
+                            handleItemUpdate={this.populateItem}
                             isWishlistUpdating={this.state.isRequestingUpdate} />
                     </Fragment>
                 }
@@ -81,6 +81,13 @@ class Wishlist extends Component {
         )
     }
 
+    populateWishlistDetails = (wishlistArray) => {
+        var parsedWishlist = JSON.parse(wishlistArray)
+        for (var i in parsedWishlist) {
+            this.populateItem(parsedWishlist[i])
+        }
+    }
+
     gotWishlistResponse = (message, err) => {
         this.setState({ isLoading: false })
         if (err === '') {
@@ -93,13 +100,6 @@ class Wishlist extends Component {
     gotWishlistError = (err) => {
         this.setState({ isLoading: false })
         alert(err)
-    }
-
-    populateWishlistDetails = (wishlistArray) => {
-        var parsedWishlist = JSON.parse(wishlistArray)
-        for (var i in parsedWishlist) {
-            this.populateItem(parsedWishlist[i])
-        }
     }
 
     populateItem = (details) => {
@@ -115,27 +115,6 @@ class Wishlist extends Component {
 
         wishlist[index] = wishlistItem
         this.setState({ wishlist: wishlist })
-    }
-
-    handleItemUpdate = (details) => {
-        if (!this.props.appState.isLoggedIn) return
-
-        this.populateItem(details)
-
-        this.setState({ isRequestingUpdate: true })
-        var api = this.props.appState.api
-        api.updateWishlistItem(details, this.gotUpdateResponse, this.gotUpdateError)
-    }
-
-    gotUpdateResponse = (response, err) => {
-        this.setState({ isRequestingUpdate: false })
-        if (err !== '') {
-            this.gotError(err)
-        }
-    }
-
-    gotUpdateError = (err) => {
-        //TODO find source of error even with success
     }
 }
 

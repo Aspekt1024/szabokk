@@ -7,6 +7,7 @@ class WishlistItem extends Component {
 
         this.state = {
             isUserUpdating: false,
+            isSaving: false,
             itemDetails : {
                 username: '',
                 number: '',
@@ -32,8 +33,14 @@ class WishlistItem extends Component {
                         <label>Comments: </label>
                         <input type='input' value={editDetails.comment} onChange={this.handleCommentChange} />
                         <div className='wishlist-buttons'>
-                            <input type='submit' className='kk-button' value='Save' onClick={this.handleSaveClicked} />
-                            <input type='submit' className='kk-button' value='Cancel' onClick={this.handleCancelClicked} />
+                            <input type='submit'
+                                className={this.state.isSaving ? 'kk-button-disabled' : 'kk-button'}
+                                value='Save'
+                                onClick={this.handleSaveClicked} />
+                            <input type='submit'
+                                className={this.state.isSaving ? 'kk-button-disabled' : 'kk-button'}
+                                value='Cancel'
+                                onClick={this.handleCancelClicked} />
                         </div>
                     </Fragment>
                 :
@@ -86,8 +93,27 @@ class WishlistItem extends Component {
 
     handleSaveClicked = e => {
         e.preventDefault()
-        this.setState({ isUserUpdating: false })
+        if (!this.props.appState.isLoggedIn) return
+
+        this.setState({ isSaving: true })
+        var api = this.props.appState.api
+        api.updateWishlistItem(this.state.itemDetails, this.gotUpdateResponse, this.gotUpdateError)
         this.props.handleItemUpdate(this.state.itemDetails)
+    }
+
+    gotUpdateResponse = (response, err) => {
+        this.setState({ isUserUpdating: false })
+        this.setState({ isSaving: false })
+        if (err !== '') {
+            this.gotError(err)
+        }
+    }
+
+    gotUpdateError = (err) => {
+        this.setState({ isUserUpdating: false })
+        this.setState({ isSaving: false })
+        //TODO find source of error even with success
+        //TODO alert user that save was unsuccessful and to try again!
     }
 
     handleCancelClicked = e => {

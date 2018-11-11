@@ -17,7 +17,6 @@ class Header extends Component {
             </Fragment>
           :
             <Fragment>
-              <Button onClick={this.gotoWishlist} content="wishlist" />
               <Button onClick={this.gotoLogin} content="login" />
               <Button onClick={this.gotoSignup} content="signup" />
             </Fragment>
