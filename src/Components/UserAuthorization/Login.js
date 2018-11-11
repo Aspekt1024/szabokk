@@ -6,7 +6,8 @@ class Login extends Component {
     super(props)
     this.state = {
       isLoading: false,
-      loginDetails: new LoginDetails()
+      loginDetails: new LoginDetails(),
+      loginStatusMessage: ''
     }
   }
 
@@ -29,50 +30,40 @@ class Login extends Component {
       return
     }
 
-    var isLoggedIn = this.props.appState.isLoggedIn
-    if (isLoggedIn) {
-      this.setLoggedOut()
-    } else {
-      var loginDetailsStatus = this.checkLoginDetails(this.state.loginDetails)
-      if (loginDetailsStatus !== ''){
-        alert(loginDetailsStatus)
-        return
-      }
-      this.setState({ isLoading: true })
-      var api = this.props.appState.api
-      api.requestLogin(this.state.loginDetails, this.gotLoginResponse, this.gotLoginError)
+    var loginDetailsStatus = this.checkLoginDetails(this.state.loginDetails)
+    if (loginDetailsStatus !== ''){
+      alert(loginDetailsStatus)
+      return
     }
+    this.setState({ isLoading: true, loginStatusMessage: 'Logging in...' })
+    var api = this.props.appState.api
+    api.requestLogin(this.state.loginDetails, this.gotLoginResponse, this.gotLoginError)
   }
 
   render() {
-    var isLoggedIn = this.props.appState.isLoggedIn
-    var user = this.props.appState.currentUser
-
     return (
-      <form className="login login-form">
-        { isLoggedIn ?
-          <div>Hello, {user.username}</div>
-        :
-        <div className="login login-input">
-          <label>
-            Username:
-            <input type="text" name="username" onChange={this.handleUsernameChange} />
-          </label>
-          <label>
-            Password:
-            <input type="password" name="password" onChange={this.handlePasswordChange} />
-          </label>
+      <form className='login login-form'>
+        <h1>Login</h1>
+        <div className='login login-input'>
+          <label>Username / email address:</label>
+          <input type='text' value={this.state.loginDetails.username} onChange={this.handleUsernameChange} /><br />
+          <label>Password:</label>
+          <input type='password' value={this.state.loginDetails.password} onChange={this.handlePasswordChange} />
         </div>
-        }
+        <div className='login-status'>{this.state.loginStatusMessage}</div>
         <input
-          type="submit"
-          className="button"
-          value={isLoggedIn ? 'Logout' : 'Login'}
+          type='submit'
+          className={this.state.isLoading ? 'login-button-disabled' : 'login-button'}
+          value='Login'
           onClick={this.handleSubmit}
         />
-        <label>{this.state.isLoading ? 'loading' : 'idle'}</label>
+        <a className='form-text' onClick={this.navigateToSignup}>or, signup now!</a>
       </form>
     )
+  }
+
+  navigateToSignup = () => {
+    this.props.navigateToPage('signup')
   }
 
   setLoggedOut() {
@@ -90,14 +81,19 @@ class Login extends Component {
         this.props.setLoggedIn(true, user)
     }
     else {
-        this.gotLoginError(new Error(message))
+        this.gotLoginError(error)
     }
     this.setState({ isLoading: false })
 }
 
   gotLoginError = (error) => {
-    this.setState({ isLoading: false })
-    alert(error)
+    var details = this.state.loginDetails
+    details.password = ''
+    this.setState({
+      isLoading: false,
+      loginDetails: details,
+      loginStatusMessage: error
+    })
   }
 
   checkLoginDetails(loginDetails) {

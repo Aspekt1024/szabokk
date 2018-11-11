@@ -28,19 +28,29 @@ class ApiLogin {
             .then(data => {
                 this.processData(data, gotDataCallback, gotTokenCallback)
             })
-            .catch(error => gotErrorCallback(error.message))
+            .catch(error => {
+                    alert(JSON.stringify(error))
+                    gotErrorCallback(error.message)
+                }
+            )
     }
 
     processData = (data, gotDataCallback, gotTokenCallback) => {
         var message = data.body
-        var err = data.status
+        var err = ''
 
         switch(data.status) {
             case '200':
                 gotTokenCallback(data.body)
-                err = ''
+                break
+            case '205':
+                err = 'The username doesn\'t exist, or hasn\'t been verified yet!'
+                break
+            case '401':
+                err = 'Invalid username or password'
                 break
             default:
+                err = data.status
                 break
         }
         gotDataCallback(message, err)

@@ -8,7 +8,7 @@ export default class Home extends Component {
 
         return (
             <Fragment>
-                <div>Home page</div>
+                <span>Home page</span>
                 <div>
                     {isLoggedIn ?
                         <div>you're logged in as {user.username} ({user.email})</div>

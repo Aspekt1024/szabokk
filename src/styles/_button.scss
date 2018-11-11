@@ -1,44 +1,30 @@
-$btn-green: #2fc44f;
-$off-white: rgba(white, 0.4);
+// Variables
+$radius: 3px;
+$color-primary: #2b8023;
 
-@mixin btn-theme($btn-color) {
-    background-color: $btn-color;
-    border-color: darken($btn-color, 20%);
-    box-shadow: 0 .375em .313em -0.313em $off-white,
-                inset 0 .063em $off-white,
-                inset 0 -0.188em $off-white;
-
-    &:hover {
-        background-color: darken($btn-color, 6%);
-        box-shadow: .06em .06em rgba($btn-color,.4),
-                    inset 0 0.05em darken($btn-color, 40%), 
-                    inset 0.05em 0 darken($btn-color, 20%),
-                    inset -0.05em 0 darken($btn-color, 20%),
-                    inset 0 -0.05em darken($btn-color, 20%);
-    }
-    &:active {
-        box-shadow: .06em .06em rgba($btn-color,.4), 
-                    inset 0 0.19em darken($btn-color, 40%), 
-                    inset 0.19em 0 darken($btn-color, 20%),
-                    inset -0.01em 0 darken($btn-color, 20%),
-                    inset 0 -0.01em darken($btn-color, 20%);
-    }
-}
+// Mixins
+@mixin transition($prop: all, $duration: 0.25s, $timing: cubic-bezier(0.4,0,1,1)) {
+    transition: $prop $duration $timing;
+  }  
 
 .kk-button {
-    @include btn-theme($btn-green);
     display: inline-block;
-    padding: .5em 1em;
-    border: .094em solid; 
-    border-radius: .625em;
-    color: #FFF;
-    text-shadow: 0 .063em #000;
-    cursor:pointer;
-    font: bold 1rem sans-serif;
+    padding: .75rem 1rem;
+    font-weight: 400;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+    vertical-align: middle;
+    white-space: nowrap;
+    background-color: $color-primary;
+    border: 1px solid transparent;
+    box-shadow: 0 15px 35px rgba(50,50,93,.1),0 5px 15px rgba(0,0,0,.07);
+    cursor: pointer;
     user-select: none;
-    text: {
-        decoration: none;
-        transform: uppercase;
-        shadow: 0 0.063em rgba(0, 0, 0,.3);
+    @include transition;
+    
+    &:hover {
+        background-color: lighten($color-primary, 13%);
+        box-shadow: 0 18px 35px rgba(50,50,93,.1),0 8px 15px rgba(0,0,0,.07);
     }
 }

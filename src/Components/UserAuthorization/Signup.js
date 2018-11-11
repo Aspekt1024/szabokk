@@ -16,7 +16,8 @@ class Signup extends Component {
 
     render() {
         return (
-            <form onSubmit={ this.handleSubmit }>
+            <form onSubmit={ this.handleSubmit } className='login login-form'>
+            <h1>Signup</h1>
                 <label>Username: </label>
                 <input type='input' value={ this.state.username } onChange={ this.handleUsernameChange } />
                 <br />
@@ -32,7 +33,7 @@ class Signup extends Component {
                 { this.state.isLoading ?
                     <div></div>
                 :
-                    <input type='submit' value='Sign Up!' />
+                    <input type='submit' value='Sign Up!' className='login-button' />
                 }
             </form>
         )
@@ -73,9 +74,9 @@ class Signup extends Component {
 
     checkValidInputs(username, email, password1, password2) {
         if (username == null || username === '') {
-            return 'Username cannot be empty'
-        } else if (email == null || email === '') {
-            return 'email is not valid'
+            return 'Username cannot be blank'
+        } else if (!this.isEmailValid(email)) {
+            return 'invalid email address'
         } else if (password1.length < 8) {
             return 'password must be at least 8 characters'
         } else if (password1 !== password2) {
@@ -94,6 +95,15 @@ class Signup extends Component {
 
     gotSignupError = (error) => {
         alert(error)
+    }
+
+    isEmailValid(email) {
+        if (email == null || email === '') {
+            return false
+        }
+        var regex = /\w@\w+.\w/g   // something@somewhere.com
+        var found = email.match(regex)
+        return found != null && found !== ''
     }
 }
 

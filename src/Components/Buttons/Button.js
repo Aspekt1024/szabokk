@@ -4,9 +4,9 @@ export default class Button extends Component {
 
     render() {
         return (
-            <div className="kk-button" onClick={this.props.handleClick} >
+            <span className="kk-button" onClick={this.props.onClick} >
                 {this.props.content}
-            </div>
+            </span>
         )
     }
 }

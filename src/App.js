@@ -1,6 +1,7 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Header from 'Components/Header'
 import Main from 'Components/Main'
+import Footer from 'Components/Footer'
 import User from './Objects/User'
 import KKApi from 'Components/API/KKApi'
 
@@ -8,7 +9,9 @@ import KKApi from 'Components/API/KKApi'
 const Views = {
   Home: 'home',
   Wishlist: 'wishlist',
-  Settings: 'settings'
+  Settings: 'settings',
+  Login: 'login',
+  Signup: 'signup'
 }
 
 class App extends Component {
@@ -19,18 +22,17 @@ class App extends Component {
       api: new KKApi(),
       currentUser: new User(),
       assignedKK: new User(),
-      currentView: Views.Home
+      currentView: Views.Login
     }
   }
 
-  setLoggedIn = (isLoggedIn, currentUser = null) => {
-    this.setState({ isLoggedIn })
+  setLoggedIn = (isLoggedIn, currentUser) => {
+    this.setState({ isLoggedIn, currentUser })
+    this.navigateToPage('home')
+  }
 
-    if (isLoggedIn && currentUser != null) {
-      this.setState({ currentUser })
-    } else if (!isLoggedIn) {
-      this.setState({ currentUser: new User() })
-    }
+  setLoggedOut = () => {
+    this.setState({ isLoggedIn: false, currentUser: new User() })
   }
 
   navigateToPage = (page) => {
@@ -39,16 +41,19 @@ class App extends Component {
 
   render() {
     return (
-      <Fragment>
-
+      <div className='app'>
         <Header
           appState={this.state}
-          setLoggedIn={this.setLoggedIn}
-          navigateToPage={this.navigateToPage} />
+          navigateToPage={this.navigateToPage}
+          handleLogout={this.setLoggedOut} />
 
-        <Main appState={this.state} />
+        <Main appState={this.state}
+              setLoggedIn={this.setLoggedIn}
+              navigateToPage={this.navigateToPage} />
 
-      </Fragment>
+        <Footer />
+
+      </div>
     )
   }
 }
