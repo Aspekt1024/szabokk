@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 
 class WishlistItem extends Component {
 
@@ -21,35 +21,58 @@ class WishlistItem extends Component {
         var storedDetails = this.props.itemDetails
         var editDetails = this.state.itemDetails
         return (
-            <form className='main-status'>
-                <div>
-                    <label>Item {this.props.itemNumber}: </label><br />
-                    <label>Link: </label><br />
-                    <label>Comments: </label><br />
-                </div>
+            <form className='kk-form wishlist-item'>
+                <h1>Item {this.props.itemNumber}</h1>
                 {this.state.isUserUpdating ?
-                    <div>
-                        <div>
-                            <input type='input' value={editDetails.item} onChange={this.handleItemChange} /><br />
-                            <input type='input' value={editDetails.link} onChange={this.handleLinkChange} /><br />
-                            <input type='input' value={editDetails.comment} onChange={this.handleCommentChange} /><br />
+                    <Fragment>
+                        <label>Description:</label>
+                        <input type='input' value={editDetails.item} onChange={this.handleItemChange} />
+                        <label>Link: </label>
+                        <input type='input' value={editDetails.link} onChange={this.handleLinkChange} />
+                        <label>Comments: </label>
+                        <input type='input' value={editDetails.comment} onChange={this.handleCommentChange} />
+                        <div className='wishlist-buttons'>
+                            <input type='submit' className='kk-button' value='Save' onClick={this.handleSaveClicked} />
+                            <input type='submit' className='kk-button' value='Cancel' onClick={this.handleCancelClicked} />
                         </div>
-                        <div>
-                            <input type='submit' value='Save' onClick={this.handleSaveClicked} />
-                            <input type='submit' value='Cancel' onClick={this.handleCancelClicked} />
-                        </div>
-                    </div>
+                    </Fragment>
                 :
-                    <div>
-                        <div>
-                            {storedDetails.item}<br />
-                            {storedDetails.link}<br />
-                            {storedDetails.comment}<br />
-                        </div>
-                        <div>
-                            <input type='submit' value='Edit' onClick={this.handleEditClicked} />
-                        </div>
-                    </div>
+                    <Fragment>
+                        {storedDetails.item === '' ?
+                            <Fragment>
+                                {this.props.isEditable ?
+                                    <Fragment>
+                                        <div className='wishlist-comment'>You haven't entered anything for this item!</div>
+                                        <div className='wishlist-buttons'>
+                                            <input type='submit' className='kk-button' value='Create it!' onClick={this.handleEditClicked} />
+                                        </div>
+                                    </Fragment>
+                                :
+                                    <div className='wishlist-comment'>This item hasn't been entered</div>
+                                }
+                            </Fragment>
+                        :
+                            <Fragment>
+                                <div className='wishlist-item-text'>{storedDetails.item}&nbsp;
+                                    <a href={storedDetails.link} target='_blank'>
+                                        {storedDetails.link === '' ?
+                                            <label></label>
+                                        :
+                                            <a href={storedDetails.link} target='_blank'>(link)</a>
+                                        }
+                                    </a>
+                                </div>
+                                <div className='wishlist-comment'>{storedDetails.comment}</div>
+                                {this.props.isEditable ?
+                                    <div className='wishlist-buttons'>
+                                        <input type='submit' className='kk-button' value='Edit' onClick={this.handleEditClicked} />
+                                    </div>
+                                :
+                                    <div></div>
+                                }
+                            </Fragment>
+                        }
+                    </Fragment>
                 }
             </form>
         )

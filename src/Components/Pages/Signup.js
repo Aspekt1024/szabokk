@@ -16,7 +16,7 @@ class Signup extends Component {
 
     render() {
         return (
-            <form onSubmit={ this.handleSubmit } className='login login-form'>
+            <form onSubmit={ this.handleSubmit } className='kk-form'>
             <h1>Signup</h1>
                 <label>Username: </label>
                 <input type='input' value={ this.state.username } onChange={ this.handleUsernameChange } />
@@ -30,11 +30,11 @@ class Signup extends Component {
                 <label>Confirm Password: </label>
                 <input type='password' value={ this.state.password2 } onChange={ this.handlePassword2Change } />
                 <br />
-                { this.state.isLoading ?
-                    <div></div>
-                :
-                    <input type='submit' value='Sign Up!' className='login-button' />
-                }
+                <input
+                    type='submit'
+                    value='Sign Up!'
+                    className={ this.state.isLoading ? 'kk-button-disabled' : 'kk-button' }
+                />
             </form>
         )
     }

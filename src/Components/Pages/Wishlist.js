@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import WishlistItem from 'Components/Wishlist/WishlistItem'
 import WishlistDetails from 'Components/API/Requests/Models/WishlistDetails'
 
@@ -18,39 +18,50 @@ class Wishlist extends Component {
                 new WishlistDetails(username, 3)
             ]
         }
+
+        var details = this.state.wishlist[0]
+        details.item = 'test item'
+        details.link = 'https://www.youtube.com/watch?v=gbf0mypLtXA&index=9&list=PLRps6yTcWQbpoqIOCmqMeI1HLnLIRmO_t'
+        details.comment = 'this is a commnet'
+
+        var wishlist = this.state.wishlist
+        wishlist[0] = details
+        this.setState({ wishlist: wishlist })
     }
 
     render() {
         return (
-            <div>
+            <form className='kk-form kk-form-wishlist'>
                 {this.state.isLoading ?
                     <div>
-                        Loading...
+                        Loading your wishlist...
                     </div>
                 :
-                    <div>
-                        Wishlist for {this.props.appState.currentUser.username}
-                        <br /><br />
-                        <form>
-                            <WishlistItem
-                                itemDetails={this.state.wishlist[0]}
-                                handleItemUpdate={this.handleItemUpdate}
-                                isWishlistUpdating={this.state.isRequestingUpdate} />
-                            <br />
-                            <WishlistItem
-                                itemDetails={this.state.wishlist[1]}
-                                handleItemUpdate={this.handleItemUpdate}
-                                isWishlistUpdating={this.state.isRequestingUpdate} />
-                            <br />
-                            <WishlistItem
-                                itemDetails={this.state.wishlist[2]}
-                                handleItemUpdate={this.handleItemUpdate}
-                                isWishlistUpdating={this.state.isRequestingUpdate} />
-                            <br />
-                        </form>
-                    </div>
+                    <Fragment>
+                        <h1>My Wishlist</h1>
+                        <div className='wishlist-comment'>This is what your Secret Santa will see!</div>
+                        <br />
+                        <WishlistItem
+                            isEditable={true}
+                            api={this.props.appState.api}
+                            itemDetails={this.state.wishlist[0]}
+                            handleItemUpdate={this.handleItemUpdate}
+                            isWishlistUpdating={this.state.isRequestingUpdate} />
+                        <WishlistItem
+                            isEditable={true}
+                            api={this.props.appState.api}
+                            itemDetails={this.state.wishlist[1]}
+                            handleItemUpdate={this.handleItemUpdate}
+                            isWishlistUpdating={this.state.isRequestingUpdate} />
+                        <WishlistItem
+                            isEditable={true}
+                            api={this.props.appState.api}
+                            itemDetails={this.state.wishlist[2]}
+                            handleItemUpdate={this.handleItemUpdate}
+                            isWishlistUpdating={this.state.isRequestingUpdate} />
+                    </Fragment>
                 }
-            </div>
+            </form>
         )
     }
 

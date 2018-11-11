@@ -12,10 +12,12 @@ class Header extends Component {
           {this.props.appState.isLoggedIn ?
             <Fragment>
               <Button onClick={this.gotoWishlist} content="wishlist" />
+              <Button onClick={this.gotoMyKK} content="mykk" />
               <Button onClick={this.handleLogout} content="logout" />
             </Fragment>
           :
             <Fragment>
+              <Button onClick={this.gotoWishlist} content="wishlist" />
               <Button onClick={this.gotoLogin} content="login" />
               <Button onClick={this.gotoSignup} content="signup" />
             </Fragment>
@@ -28,6 +30,11 @@ class Header extends Component {
   gotoWishlist = e => {
     e.preventDefault()
     this.props.navigateToPage('wishlist')
+  }
+
+  gotoMyKK = e => {
+    e.preventDefault()
+    this.props.navigateToPage('mykk')
   }
 
   gotoSignup = e => {

@@ -42,22 +42,20 @@ class Login extends Component {
 
   render() {
     return (
-      <form className='login login-form'>
+      <form className='kk-form'>
         <h1>Login</h1>
-        <div className='login login-input'>
-          <label>Username / email address:</label>
-          <input type='text' value={this.state.loginDetails.username} onChange={this.handleUsernameChange} /><br />
-          <label>Password:</label>
-          <input type='password' value={this.state.loginDetails.password} onChange={this.handlePasswordChange} />
-        </div>
-        <div className='login-status'>{this.state.loginStatusMessage}</div>
+        <label>Username / email address:</label>
+        <input type='text' value={this.state.loginDetails.username} onChange={this.handleUsernameChange} /><br />
+        <label>Password:</label>
+        <input type='password' value={this.state.loginDetails.password} onChange={this.handlePasswordChange} />
+        <div className='kk-status'>{this.state.loginStatusMessage}</div>
         <input
           type='submit'
-          className={this.state.isLoading ? 'login-button-disabled' : 'login-button'}
+          className={this.state.isLoading ? 'kk-button-disabled' : 'kk-button'}
           value='Login'
           onClick={this.handleSubmit}
         />
-        <a className='form-text' onClick={this.navigateToSignup}>or, signup now!</a>
+        <a className='form-text' onClick={this.navigateToSignup}>or, signup here!</a>
       </form>
     )
   }

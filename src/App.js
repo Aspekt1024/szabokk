@@ -9,6 +9,7 @@ import KKApi from 'Components/API/KKApi'
 const Views = {
   Home: 'home',
   Wishlist: 'wishlist',
+  MyKK: 'mykk',
   Settings: 'settings',
   Login: 'login',
   Signup: 'signup'

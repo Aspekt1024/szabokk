@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Home from 'Components/Pages/Home'
-import Login from 'Components/UserAuthorization/Login'
-import Signup from 'Components/UserAuthorization/Signup'
-import Wishlist from 'Components/Wishlist/Wishlist'
+import Login from 'Components/Pages/Login'
+import Signup from 'Components/Pages/Signup'
+import Wishlist from 'Components/Pages/Wishlist'
 
 class Main extends Component {
   render() {
