@@ -30,7 +30,6 @@ class App extends Component {
 
   setLoggedIn = (currentUser) => {
     this.setState({ isLoggedIn: true, currentUser })
-    this.navigateToPage('home')
     this.getAssignedKK()
   }
 
@@ -39,7 +38,6 @@ class App extends Component {
       isLoggedIn: false,
       currentUser: new User()
      })
-     this.navigateToPage('home')
   }
 
   // TODO move to separate function

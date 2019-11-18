@@ -1,4 +1,6 @@
-# kk
+# szabo kk #
+
+This is a personal KK app project for use with my family.
 
 ## Start
 ```
