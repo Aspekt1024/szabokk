@@ -1,20 +1,64 @@
+
 .header {
-	color: rgb(100, 19, 19);
-	display: flex;
-	justify-content: space-between;
-	background-color: rgba(255, 255, 255, 0.85);
-	font-size: calc(10px + 2vmin);
-	padding-left: 5px;
+  width: 100vw;
+  height: calc(150px + 20vh);
+
+  display: flex;
+  flex-direction: column;
+
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../Images/bg02.jpeg');
+  background-size: cover;
 }
 
-.header-container {
-	min-width: 100%;
-	padding-bottom: 0px;
-	border-bottom: 1px solid black;
+.header-content {
+  margin: auto;
+  display: inline-block;
+  color: white;
+
+  h1 {
+    font-size: calc(40px + 2.7vmax);
+    font-weight: normal;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    display: block;
+    margin: 0px;
+  }
+
+  p {
+    font-size: calc(14px + 0.5vmax);
+    text-align: center;
+    display: block;
+  }
 }
 
-.banner {
-	font-size: 32px;
-	align-items: center;
-	background-color: transparent;
+.navbar {
+  width: 100vw;
+  background-color: rgba(6, 12, 20, 0.7);
+  text-align: center;
+}
+  
+.navbutton {
+  color: white;
+  display: inline-block;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.0) inset;
+  box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.0) inset;
+  margin: 0px;
+  line-height: calc(30px + 1.5vw);
+  font-weight: 300;
+  font-size: 20px;
+  text-decoration: none;
+  width: calc(68px + 8vw);
+
+  transition: 0.7s color ease;
+
+  &:hover {
+    color: rgb(0, 162, 255);
+  }
+  &:active {
+    box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.2) inset;
+  }
+}
+
+.navbutton-active {
+  box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.164) inset;
 }

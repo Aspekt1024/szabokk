@@ -1,6 +1,9 @@
+$dark-gray: rgb(29, 29, 29);
+$light-gray: rgb(182, 182, 182);
+
 @import "header.scss";
 @import "main.scss";
 @import "form.scss";
 @import "button.scss";
-@import "app.scss";
-@import "wishlist.scss"
+@import "wishlist.scss";
+@import "footer.scss";

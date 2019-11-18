@@ -1,0 +1,25 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+
+  text-align: center;
+  vertical-align: middle;
+
+  color: white;
+  background-color: $dark-gray;
+  width: 100vw;
+  height: 150px;
+
+  position: absolute;
+  bottom: 0px;
+
+  p {
+      display: inline-block;
+      margin-top: 30px;
+      vertical-align: middle;
+  }
+}
+
+.footer-content {
+    
+}
