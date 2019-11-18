@@ -1,0 +1,230 @@
+.header {
+  color: #641313;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.85);
+  font-size: calc(10px + 2vmin);
+  padding-left: 5px; }
+
+.header-container {
+  min-width: 100%;
+  padding-bottom: 0px;
+  border-bottom: 1px solid black; }
+
+.banner {
+  font-size: 32px;
+  align-items: center;
+  background-color: transparent; }
+
+.main {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white; }
+
+.main-status {
+  display: flex;
+  flex-direction: column; }
+
+.kk-form {
+  display: flex;
+  flex-direction: column;
+  font-size: calc(8px + 2vmin);
+  padding: 2rem;
+  margin-top: 0;
+  margin-right: auto;
+  margin-left: auto;
+  width: 70vw;
+  min-width: 16.875rem;
+  max-width: 25.625rem;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+  color: black; }
+  .kk-form h1 {
+    margin-top: 0;
+    margin-bottom: 3.236rem;
+    text-align: center;
+    font-size: 1.618rem; }
+  .kk-form .form-group {
+    padding: 0;
+    border: 0; }
+    .kk-form .form-group + .kk-form .form-group {
+      margin-top: 1rem; }
+  .kk-form label, .kk-form .form-text {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    touch-action: manipulation; }
+  .kk-form label {
+    text-align: left;
+    text-transform: uppercase; }
+  .kk-form .kk-status {
+    text-align: center;
+    margin: 15px;
+    font-size: 0.9rem; }
+  .kk-form input,
+  .kk-form textarea {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.7rem;
+    width: auto;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #141414;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    resize: vertical;
+    border-top: 1px solid #444;
+    border-right: 1px solid #444;
+    border-bottom: 1px solid #444;
+    border-left: 1px solid #444;
+    border-radius: 3px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 1, 1); }
+    .kk-form input:focus,
+    .kk-form textarea:focus {
+      outline: 0;
+      border-bottom-color: #2b8023; }
+  .kk-form .kk-button {
+    display: inline-block;
+    padding: .75rem 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 400;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+    vertical-align: middle;
+    white-space: nowrap;
+    background-color: #2b8023;
+    border: 1px solid transparent;
+    box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.25s cubic-bezier(0.4, 0, 1, 1); }
+    .kk-form .kk-button:hover {
+      background-color: #3cb431;
+      box-shadow: 0 18px 35px rgba(50, 50, 93, 0.1), 0 8px 15px rgba(0, 0, 0, 0.07); }
+  .kk-form .kk-button-disabled {
+    display: inline-block;
+    padding: .75rem 1rem;
+    margin-top: 1.618rem;
+    margin-bottom: 1.618rem;
+    font-weight: 400;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+    vertical-align: middle;
+    white-space: nowrap;
+    background-color: #9b9b9b;
+    border: 1px solid transparent;
+    box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07); }
+
+.kk-button {
+  display: inline-block;
+  padding: .75rem 1rem;
+  font-weight: 400;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+  vertical-align: middle;
+  white-space: nowrap;
+  background-color: #2b8023;
+  border: 1px solid transparent;
+  box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.25s cubic-bezier(0.4, 0, 1, 1); }
+  .kk-button:hover {
+    background-color: #3cb431;
+    box-shadow: 0 18px 35px rgba(50, 50, 93, 0.1), 0 8px 15px rgba(0, 0, 0, 0.07); }
+
+body {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background-color: #921c1c;
+  background-image: url(/static/media/bg06.83524cb0.jpg);
+  background-size: 2048px;
+  background-position-x: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: calc(8px + 2vmin);
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; }
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center; }
+
+a {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline; }
+
+.kk-text {
+  font-size: 1.3rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 0px;
+  margin-bottom: 30px; }
+
+.kk-form-wishlist {
+  width: 70vw;
+  max-width: 70vw;
+  border-radius: 15px; }
+  .kk-form-wishlist h1 {
+    margin-bottom: 10px; }
+
+.wishlist-item {
+  text-align: center;
+  font-weight: normal;
+  font-size: 1rem;
+  width: 70vw;
+  min-width: 250px;
+  max-width: 500px;
+  border: 1px solid black;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  margin-left: 10px;
+  margin-right: 10px;
+  align-self: center;
+  padding: 15px;
+  align-content: center;
+  background-color: #e3ece6;
+  box-shadow: 8px 15px 30px rgba(50, 50, 93, 0.2), 5px 5px 10px rgba(5, 24, 6, 0.089); }
+  .wishlist-item h1 {
+    margin: 0px;
+    padding: 0px; }
+  .wishlist-item .kk-button, .wishlist-item .kk-button-disabled {
+    margin-bottom: 0px;
+    margin-top: 10px; }
+
+.wishlist-comment {
+  font-size: 1.1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 10px; }
+
+.wishlist-buttons {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  align-self: center; }
+  .wishlist-buttons .kk-button, .wishlist-buttons .kk-button-disabled {
+    width: 120px; }
+
+.wishlist-item-text {
+  text-transform: none;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 1.2rem; }
+
+/*# sourceMappingURL=styles.css.map*/
