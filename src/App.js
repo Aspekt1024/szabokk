@@ -10,7 +10,7 @@ import MyKK from 'Components/Pages/MyKK'
 import Wishlist from 'Components/Pages/Wishlist'
 import Signup from 'Components/Pages/Signup'
 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { HashRouter as Router, Switch, Route } from 'react-router-dom'
 
 class App extends Component {
   constructor() {
