@@ -2,7 +2,6 @@
 import React, { Component, Fragment } from 'react'
 import { NavLink } from 'react-router-dom'
 
-
 class Navbar extends Component {
   render() {
     return (
@@ -12,7 +11,7 @@ class Navbar extends Component {
             <NavLink exact={true} className='navbutton' activeClassName='navbutton-active' to='/'>Home</NavLink>
             <NavLink className='navbutton' activeClassName='navbutton-active' to='/mywishlist'>My Wishlist</NavLink>
             <NavLink className='navbutton' activeClassName='navbutton-active' to='/mykk'>My KK</NavLink>
-            <NavLink className='navbutton' activeClassName='navbutton-active' onClick={this.handleLogout}>Logout</NavLink>
+            <div className='navbutton' onClick={this.handleLogout}>Logout</div>
           </Fragment>
         :
           <Fragment>

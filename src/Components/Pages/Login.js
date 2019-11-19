@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import LoginDetails from '../API/Requests/Models/UserLoginDetails'
+import { NavLink } from 'react-router-dom'
 
 class Login extends Component {
   constructor(props) {
@@ -56,14 +57,10 @@ class Login extends Component {
             value='Login'
             onClick={this.handleSubmit}
           />
-          <a className='form-text' onClick={this.navigateToSignup}>Haven't signed up yet?<br />Sign up here!</a>
+          <NavLink className='form-text' to='/signup'>Haven't signed up yet?<br />Sign up here!</NavLink>
         </form>
       </div>
     )
-  }
-
-  navigateToSignup = () => {
-    this.props.navigateToPage('signup')
   }
 
   setLoggedOut() {

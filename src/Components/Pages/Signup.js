@@ -17,35 +17,37 @@ class Signup extends Component {
 
     render() {
         return (
-            <form className='kk-form'>
-                <h1>Signup</h1>
-                {this.state.isSubmitted ?
-                    <div className='kk-text'>
-                        Hey, {this.state.username}!<br /><br />
-                        A verification email has been sent to {this.state.email}.<br />
-                        Click the Verify Email link in the email, then you'll be able to log in!
-                    </div>
-                :
-                    <Fragment>
-                        <label>Username: </label>
-                        <input type='input' value={ this.state.username } onChange={ this.handleUsernameChange } />
-                        <br />
-                        <label>Email: </label>
-                        <input type='input' value={ this.state.email } onChange={ this.handleEmailChange } />
-                        <br />
-                        <label>Password: </label>
-                        <input type='password' value={ this.state.password1 } onChange={ this.handlePassword1Change } />
-                        <br />
-                        <label>Confirm Password: </label>
-                        <input type='password' value={ this.state.password2 } onChange={ this.handlePassword2Change } />
-                        <br />
-                        <input type='submit'
-                            value='Sign Up'
-                            className={ this.state.isLoading ? 'kk-button-disabled' : 'kk-button' }
-                            onClick={ this.handleSubmit } />
-                    </Fragment>
-                }
-            </form>
+            <div className='page'>
+                <form className='kk-form'>
+                    <h1>Signup</h1>
+                    {this.state.isSubmitted ?
+                        <div className='kk-text'>
+                            Hey, {this.state.username}!<br /><br />
+                            A verification email has been sent to {this.state.email}.<br />
+                            Click the Verify Email link in the email, then you'll be able to log in!
+                        </div>
+                    :
+                        <Fragment>
+                            <label>Username: </label>
+                            <input type='input' value={ this.state.username } onChange={ this.handleUsernameChange } />
+                            <br />
+                            <label>Email: </label>
+                            <input type='input' value={ this.state.email } onChange={ this.handleEmailChange } />
+                            <br />
+                            <label>Password: </label>
+                            <input type='password' value={ this.state.password1 } onChange={ this.handlePassword1Change } />
+                            <br />
+                            <label>Confirm Password: </label>
+                            <input type='password' value={ this.state.password2 } onChange={ this.handlePassword2Change } />
+                            <br />
+                            <input type='submit'
+                                value='Sign Up'
+                                className={ this.state.isLoading ? 'kk-button-disabled' : 'kk-button' }
+                                onClick={ this.handleSubmit } />
+                        </Fragment>
+                    }
+                </form>
+            </div>
         )
     }
 

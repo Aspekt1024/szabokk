@@ -1,11 +1,6 @@
 
-.kk-form-wishlist {
-    width: 70vw;
-    max-width: 70vw;
-    border-radius: 15px;
-    h1 {
-        margin-bottom: 10px;
-    }
+.wishlist {
+    width: 100%;
   }
   
 .wishlist-item {
@@ -17,10 +12,9 @@
     max-width: 500px;
     
     border: 1px solid black;
+    margin: auto;
     margin-top: 10px;
     margin-bottom: 0px;
-    margin-left: 10px;
-    margin-right: 10px;
     align-self: center;
     padding: 15px;
     align-content: center;

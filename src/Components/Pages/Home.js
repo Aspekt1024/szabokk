@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { NavLink } from 'react-router-dom'
 
 export default class Home extends Component {
 
@@ -7,48 +8,31 @@ export default class Home extends Component {
         var user = this.props.appState.currentUser
 
         return (
-            <form className='kk-form'>
-                <h1>Szabo KK 2018</h1>
+            <div className='page'>
                 {isLoggedIn ?
                     <Fragment>
-                        <div className='kk-text'>
+                        <div>
                             Hey, {user.username}!<br />
-                            Welcome to the Szabo KK App for 2018!
+                            Welcome to the Szabo KK App for 2019!
                         </div>
-                        <input type='submit' class='kk-button' value='My Wishlist' onClick={this.navigateToWishlist} />
-                        <input type='submit' class='kk-button' value='My KK' onClick={this.navigateToMyKK} />
+                        <div className='kk-form'>
+                            <NavLink className='kk-button' to='/mywishlist'>My Wishlist</NavLink>
+                            <NavLink className='kk-button' to='/mykk'>My KK</NavLink>
+                        </div>
                     </Fragment>
                 :
                     <Fragment>
-                        <div className='kk-text'>
-                            Welcome to the Szabo 2018 KK App!<br />
+                        <div>
+                            Welcome to the Szabo 2019 KK App!<br />
                             Login or Sign up to continue
                         </div>
-                        <input type='submit' class='kk-button' value='Login' onClick={this.navigateToLogin} />
-                        <input type='submit' class='kk-button' value='Sign up' onClick={this.navigateToSignup} />
+                        <div className='kk-form'>
+                            <NavLink className='kk-button' to={'/login'}>Login</NavLink>
+                            <NavLink className='kk-button' to={'/signup'}>Sign Up</NavLink>
+                        </div>
                     </Fragment>
                 }
-            </form>
+            </div>
         )
-    }
-
-    navigateToLogin = e => {
-        e.preventDefault()
-        this.props.navigateToPage('login')
-    }
-
-    navigateToSignup = e => {
-        e.preventDefault()
-        this.props.navigateToPage('signup')
-    }
-
-    navigateToWishlist = e => {
-        e.preventDefault()
-        this.props.navigateToPage('wishlist')
-    }
-
-    navigateToMyKK = e => {
-        e.preventDefault()
-        this.props.navigateToPage('mykk')
     }
 }
