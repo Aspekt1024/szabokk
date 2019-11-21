@@ -81,7 +81,8 @@ class Signup extends Component {
             this.state.email
         )
         this.setState({ isLoading: true })
-        this.props.api.requestSignup(signupDetails, this.gotSignupResponse, this.gotSignupError)
+        var api = this.props.appState.api
+        api.requestSignup(signupDetails, this.gotSignupResponse, this.gotSignupError)
     }
 
     checkValidInputs(username, email, password1, password2) {
