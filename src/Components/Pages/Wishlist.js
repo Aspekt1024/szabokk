@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import WishlistItem from 'Components/Wishlist/WishlistItem'
 import WishlistDetails from 'Components/API/Requests/Models/WishlistDetails'
 
@@ -20,15 +20,21 @@ class Wishlist extends Component {
         }
     }
 
+    componentWillMount = () => {
+        if (!this.props.isLoggedIn) {
+            window.location.hash = '/'
+        }
+    }
+
     render() {
         return (
-            <form className='kk-form kk-form-wishlist'>
+            <div className='page'>
                 {this.state.isLoading ?
                     <div>
                         Loading your wishlist...
                     </div>
                 :
-                    <Fragment>
+                    <div className='wishlist'>
                         <h1>My Wishlist</h1>
                         <div className='wishlist-comment'>This is what your Secret Santa will see!</div>
                         <br />
@@ -50,9 +56,9 @@ class Wishlist extends Component {
                             itemDetails={this.state.wishlist[2]}
                             handleItemUpdate={this.populateItem}
                             isWishlistUpdating={this.state.isRequestingUpdate} />
-                    </Fragment>
+                    </div>
                 }
-            </form>
+            </div>
         )
     }
 

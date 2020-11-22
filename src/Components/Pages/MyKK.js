@@ -18,11 +18,17 @@ class MyKK extends Component {
         }
     }
 
+    componentWillMount = () => {
+        if (!this.props.isLoggedIn) {
+            window.location.hash = '/'
+        }
+    }
+
     render() {
         var details = this.props.appState.assignmentDetails
         var assignedKK = details.assignedKK
         return (
-            <form className='kk-form kk-form-wishlist'>
+            <div className='page'>
                 {details.isAssignmentLoaded ?
                     <Fragment>
                         {details.isAssignmentPending ?
@@ -36,7 +42,7 @@ class MyKK extends Component {
                                     onClick={this.state.isShowingWishlist ? this.handleHideWishlist : this.handleShowWishlist}
                                 />
                                 {this.state.isShowingWishlist ?
-                                    <Fragment>
+                                    <div className='wishlist'>
                                         {this.state.isLoading ?
                                             <div>
                                                 Loading wishlist...
@@ -63,7 +69,7 @@ class MyKK extends Component {
                                                     isWishlistUpdating={this.state.isRequestingUpdate} />
                                             </Fragment>
                                         }
-                                    </Fragment>
+                                    </div>
                                 :
                                     <div className='wishlist-comment'>
                                         Wishlist is hidden. Click the 'Show Wishlist' button to see it!
@@ -75,7 +81,7 @@ class MyKK extends Component {
                 :
                     <h1>Loading KK details...</h1>
                 }
-            </form>
+            </div>
         )
     }
 

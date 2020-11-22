@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Navbar from 'Components/Navbar'
 
 class Header extends Component {
   render() {
@@ -13,7 +12,6 @@ class Header extends Component {
             2019 Edition
           </p>
         </div>
-        <Navbar isLoggedIn={this.props.isLoggedIn} />
       </div>
     )
   }

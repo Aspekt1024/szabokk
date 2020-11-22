@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Header from 'Components/Header'
-import Footer from 'Components/Footer'
 import User from './Objects/User'
 import KKApi from 'Components/API/KKApi'
 
@@ -9,8 +8,9 @@ import Login from 'Components/Pages/Login'
 import MyKK from 'Components/Pages/MyKK'
 import Wishlist from 'Components/Pages/Wishlist'
 import Signup from 'Components/Pages/Signup'
+import Navbar from 'Components/Navbar'
 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { HashRouter as Router, Switch, Route } from 'react-router-dom'
 
 class App extends Component {
   constructor() {
@@ -28,10 +28,33 @@ class App extends Component {
     }
   }
 
+  render() {
+    return (
+      <div className='App'>
+        <Router>
+          <Header
+              appState={this.state}
+              navigateToPage={this.navigateToPage}
+              handleLogout={this.setLoggedOut} />
+
+          <Navbar isLoggedIn={this.state.isLoggedIn} handleLogout={this.setLoggedOut} />
+          <Switch>
+            <Route exact path='/' component= {() => <Home appState={this.state} setLoggedIn={this.setLoggedIn}/>}/>
+            <Route path='/mywishlist' component = {() => <Wishlist appState={this.state} isLoggedIn={this.state.isLoggedIn}/>}/>
+            <Route path='/mykk' component = {() => <MyKK appState={this.state} isLoggedIn={this.state.isLoggedIn}/>}/>
+            <Route path='/signup' component = {() => <Signup appState={this.state}/>}/>
+            <Route path='/login' component = {() => <Login appState={this.state} setLoggedIn={this.setLoggedIn} isLoggedIn={this.state.isLoggedIn}/>}/>
+            <Route component = {() => <Home appState={this.state} setLoggedIn={this.setLoggedIn}/>}/>
+          </Switch>
+        </Router>
+      </div>
+    )
+  }
+
   setLoggedIn = (currentUser) => {
     this.setState({ isLoggedIn: true, currentUser })
-    this.navigateToPage('home')
     this.getAssignedKK()
+    window.location.hash = '/'
   }
 
   setLoggedOut = () => {
@@ -39,7 +62,7 @@ class App extends Component {
       isLoggedIn: false,
       currentUser: new User()
      })
-     this.navigateToPage('home')
+     window.location.hash = '/'
   }
 
   // TODO move to separate function
@@ -75,30 +98,6 @@ class App extends Component {
       assignmentDetails.isAssignmentPending = false
     }
     this.setState({ assignmentDetails: assignmentDetails })
-  }
-
-  render() {
-    return (
-      <div className='App'>
-        <Router>
-          <Header
-              appState={this.state}
-              navigateToPage={this.navigateToPage}
-              handleLogout={this.setLoggedOut} />
-
-          <Switch>
-            <Route exact path='/' component= {() => <Home appState={this.state} setLoggedIn={this.setLoggedIn} navigateToPage={this.navigateToPage}/>}/>
-            <Route path='/mywishlist' component = {() => <Wishlist appState={this.state}/>}/>
-            <Route path='/mykk' component = {() => <MyKK appState={this.state}/>}/>
-            <Route path='/signup' component = {() => <Signup appState={this.state}/>}/>
-            <Route path='/login' component = {() => <Login appState={this.state} setLoggedIn={this.setLoggedIn} navigateToPage={this.navigateToPage}/>}/>
-            <Route component = {() => <Home appState={this.state} setLoggedIn={this.setLoggedIn} navigateToPage={this.navigateToPage}/>}/>
-          </Switch>
-        </Router>
-
-        <Footer />
-      </div>
-    )
   }
 }
 
