@@ -16,6 +16,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
+      year: 2020,
       isLoggedIn: false,
       api: new KKApi(),
       currentUser: new User(),

@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 
 class Header extends Component {
   render() {
+
+    const {
+      props : { appState }
+    } = this
+
     return (
       <div className="header">
         <div className="header-content">
@@ -9,7 +14,7 @@ class Header extends Component {
             Szabo KK
           </h1>
           <p>
-            2019 Edition
+            {appState.year} Edition
           </p>
         </div>
       </div>

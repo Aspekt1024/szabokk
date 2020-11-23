@@ -4,8 +4,14 @@ import { NavLink } from 'react-router-dom'
 export default class Home extends Component {
 
     render() {
-        var isLoggedIn = this.props.appState.isLoggedIn
-        var user = this.props.appState.currentUser
+
+        const {
+            props : { appState }
+        } = this
+
+        var isLoggedIn = appState.isLoggedIn
+        var user = appState.currentUser
+        var year = appState.year
 
         return (
             <div className='page'>
@@ -13,7 +19,7 @@ export default class Home extends Component {
                     <Fragment>
                         <div>
                             Hey, {user.username}!<br />
-                            Welcome to the Szabo KK App for 2019!
+                            Welcome to the Szabo KK App for {year}!
                         </div>
                         <div className='kk-form'>
                             <NavLink className='kk-button' to='/mywishlist'>My Wishlist</NavLink>
@@ -23,7 +29,7 @@ export default class Home extends Component {
                 :
                     <Fragment>
                         <div>
-                            Welcome to the Szabo 2019 KK App!<br />
+                            Welcome to the Szabo {year} KK App!<br />
                             Login or Sign up to continue
                         </div>
                         <div className='kk-form'>

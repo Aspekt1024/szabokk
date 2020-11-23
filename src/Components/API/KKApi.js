@@ -5,6 +5,8 @@ import ApiUpdateWishlist from './Requests/ApiUpdateWishlist'
 import ApiGetAssignment from './Requests/ApiGetAssignment'
 
 import WishlistDetails from './Requests/Models/WishlistDetails'
+import ApiGetSentiment from './Requests/ApiGetSentiment'
+import ApiUpdateSentiment from './Requests/ApiUpdateSentiment'
 
 const API_URL = 'https://41b50mfzy7.execute-api.ap-southeast-2.amazonaws.com/dev'
 
@@ -17,6 +19,8 @@ class KKApi {
             signupHandler: new ApiSignup(API_URL),
             getWishlistHandler: new ApiGetWishlist(API_URL),
             updateItemHandler: new ApiUpdateWishlist(API_URL),
+            getSentimentHandler: new ApiGetSentiment(API_URL),
+            updateSentimentHandler: new ApiUpdateSentiment(API_URL),
             getAssignmentHandler: new ApiGetAssignment(API_URL)
         }
     }
@@ -59,6 +63,25 @@ class KKApi {
 
         this.state.updateItemHandler.attemptUpdateWishlist(
             data,
+            this.state.token,
+            gotSuccessCallback,
+            gotErrorCallback
+        )
+    }
+
+    getSentiment = (username, gotDataCallback, gotErrorCallback) => {
+        this.state.getSentimentHandler.attemptGetSentiment(
+            username,
+            this.state.token,
+            gotDataCallback,
+            gotErrorCallback
+        )
+    }
+
+    updateSentiment = (username, sentiment, gotSuccessCallback, gotErrorCallback) => {
+        this.state.updateSentimentHandler.attemptUpdateSentiment(
+            username,
+            sentiment,
             this.state.token,
             gotSuccessCallback,
             gotErrorCallback

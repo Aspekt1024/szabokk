@@ -8,8 +8,10 @@ class MyKK extends Component {
         super(props)
 
         this.state = {
-            isLoading: false,
+            isWishlistLoaded: false,
+            isSentimentLoaded: false,
             isShowingWishlist: false,
+            sentiment: '',
             wishlist: [
                 new WishlistDetails('', 1),
                 new WishlistDetails('', 2),
@@ -27,6 +29,11 @@ class MyKK extends Component {
     render() {
         var details = this.props.appState.assignmentDetails
         var assignedKK = details.assignedKK
+
+        const {
+            state : { isSentimentLoaded, sentiment }
+        } = this
+
         return (
             <div className='page'>
                 {details.isAssignmentLoaded ?
@@ -35,45 +42,14 @@ class MyKK extends Component {
                             <h1>KKs have not been assigned yet!</h1>
                         :
                             <Fragment>
-                                <h1>Your KK is {assignedKK.username}</h1>
-                                <input type='submit'
-                                    className='kk-button'
-                                    value={this.state.isShowingWishlist ? 'Hide Wishlist' : 'Show Wishlist'}
-                                    onClick={this.state.isShowingWishlist ? this.handleHideWishlist : this.handleShowWishlist}
-                                />
-                                {this.state.isShowingWishlist ?
-                                    <div className='wishlist'>
-                                        {this.state.isLoading ?
-                                            <div>
-                                                Loading wishlist...
-                                            </div>
-                                        :
-                                            <Fragment>
-                                                <WishlistItem
-                                                    isEditable={false}
-                                                    appState={this.props.appState}
-                                                    itemDetails={this.state.wishlist[0]}
-                                                    handleItemUpdate={this.populateItem}
-                                                    isWishlistUpdating={this.state.isRequestingUpdate} />
-                                                <WishlistItem
-                                                    isEditable={false}
-                                                    appState={this.props.appState}
-                                                    itemDetails={this.state.wishlist[1]}
-                                                    handleItemUpdate={this.populateItem}
-                                                    isWishlistUpdating={this.state.isRequestingUpdate} />
-                                                <WishlistItem
-                                                    isEditable={false}
-                                                    appState={this.props.appState}
-                                                    itemDetails={this.state.wishlist[2]}
-                                                    handleItemUpdate={this.populateItem}
-                                                    isWishlistUpdating={this.state.isRequestingUpdate} />
-                                            </Fragment>
-                                        }
-                                    </div>
+                                { this.renderSentiment() }
+                                { isSentimentLoaded && sentiment !== '' ?
+                                    <Fragment>
+                                        <h1>Your KK is {assignedKK.username}</h1>
+                                        { this.renderWishlist() }
+                                    </Fragment>
                                 :
-                                    <div className='wishlist-comment'>
-                                        Wishlist is hidden. Click the 'Show Wishlist' button to see it!
-                                    </div>
+                                    <Fragment></Fragment>
                                 }
                             </Fragment>
                         }
@@ -82,6 +58,69 @@ class MyKK extends Component {
                     <h1>Loading KK details...</h1>
                 }
             </div>
+        )
+    }
+
+    renderSentiment = () => {
+        const {
+            state : { isSentimentLoaded, sentiment }
+        } = this
+
+        return (
+            <div>
+                Sentiment
+            </div>
+        )
+    }
+
+    renderWishlist = () => {
+
+        const {
+            state : { isWishlistLoaded, wishlist, isShowingWishlist }
+        } = this
+
+        return (
+            <Fragment>
+                <input type='submit'
+                    className='kk-button'
+                    value={isShowingWishlist ? 'Hide Wishlist' : 'Show Wishlist'}
+                    onClick={isShowingWishlist ? this.handleHideWishlist : this.handleShowWishlist}
+                />
+                {this.state.isShowingWishlist ?
+                    <div className='wishlist'>
+                        { !isWishlistLoaded ?
+                            <div>
+                                Loading wishlist...
+                            </div>
+                        :
+                            <Fragment>
+                                <WishlistItem
+                                    isEditable={false}
+                                    appState={this.props.appState}
+                                    itemDetails={wishlist[0]}
+                                    handleItemUpdate={this.populateItem}
+                                    isWishlistUpdating={this.state.isRequestingUpdate} />
+                                <WishlistItem
+                                    isEditable={false}
+                                    appState={this.props.appState}
+                                    itemDetails={wishlist[1]}
+                                    handleItemUpdate={this.populateItem}
+                                    isWishlistUpdating={this.state.isRequestingUpdate} />
+                                <WishlistItem
+                                    isEditable={false}
+                                    appState={this.props.appState}
+                                    itemDetails={wishlist[2]}
+                                    handleItemUpdate={this.populateItem}
+                                    isWishlistUpdating={this.state.isRequestingUpdate} />
+                            </Fragment>
+                        }
+                    </div>
+                :
+                    <div className='wishlist-comment'>
+                        Wishlist is hidden. Click the 'Show Wishlist' button to see it!
+                    </div>
+                }
+            </Fragment>
         )
     }
 
@@ -100,6 +139,12 @@ class MyKK extends Component {
             this.gotWishlistResponse,
             this.gotWishlistError
         )
+
+        api.getSentiment(
+            username,
+            this.gotSentimentResponse,
+            this.gotSentimentError
+        )
     }
 
     populateWishlistDetails = (wishlistArray) => {
@@ -110,7 +155,7 @@ class MyKK extends Component {
     }
 
     gotWishlistResponse = (message, err) => {
-        this.setState({ isLoading: false })
+        this.setState({ isWishlistLoaded: true })
         if (err === '') {
             this.populateWishlistDetails(message)
         } else {
@@ -119,7 +164,21 @@ class MyKK extends Component {
     }
 
     gotWishlistError = (err) => {
-        this.setState({ isLoading: false })
+        this.setState({ isWishlistLoaded: true })
+        alert(err)
+    }
+
+    gotSentimentResponse = (message, err) => {
+        this.setState({ isSentimentLoaded: true })
+        if (err === '') {
+            this.populateSentimentDetails(message)
+        } else {
+            this.gotError(err)
+        }
+    }
+
+    gotSentimentError = (err) => {
+        this.setState({ isSentimentLoaded: true })
         alert(err)
     }
 
