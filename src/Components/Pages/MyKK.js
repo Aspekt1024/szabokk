@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import WishlistItem from 'Components/Wishlist/WishlistItem'
 import WishlistDetails from 'Components/API/Requests/Models/WishlistDetails'
+import Sentiment from '../Sentiment'
 
 class MyKK extends Component {
 
@@ -10,6 +11,7 @@ class MyKK extends Component {
         this.state = {
             isWishlistLoaded: false,
             isSentimentLoaded: false,
+            isSentimentValid: false,
             isShowingWishlist: false,
             sentiment: '',
             wishlist: [
@@ -31,7 +33,7 @@ class MyKK extends Component {
         var assignedKK = details.assignedKK
 
         const {
-            state : { isSentimentLoaded, sentiment }
+            state : { isSentimentValid, isSentimentLoaded }
         } = this
 
         return (
@@ -42,14 +44,23 @@ class MyKK extends Component {
                             <h1>KKs have not been assigned yet!</h1>
                         :
                             <Fragment>
-                                { this.renderSentiment() }
-                                { isSentimentLoaded && sentiment !== '' ?
+                                <h1>Your KK is {assignedKK.username}</h1>
+                                <Sentiment
+                                    user={assignedKK.username}
+                                    appState={this.props.appState}
+                                    onSentimentLoaded={(sentiment) => this.setState({ isSentimentValid: sentiment !== '', isSentimentLoaded: true })}
+                                />
+                                { isSentimentValid ?
                                     <Fragment>
-                                        <h1>Your KK is {assignedKK.username}</h1>
                                         { this.renderWishlist() }
                                     </Fragment>
                                 :
-                                    <Fragment></Fragment>
+                                    isSentimentLoaded ?
+                                        <div className='sentiment-tutorial-text'>
+                                            Wishlist details will be available after you've entered a message above.
+                                        </div>
+                                    :
+                                        <Fragment />
                                 }
                             </Fragment>
                         }
@@ -61,18 +72,6 @@ class MyKK extends Component {
         )
     }
 
-    renderSentiment = () => {
-        const {
-            state : { isSentimentLoaded, sentiment }
-        } = this
-
-        return (
-            <div>
-                Sentiment
-            </div>
-        )
-    }
-
     renderWishlist = () => {
 
         const {
@@ -80,9 +79,9 @@ class MyKK extends Component {
         } = this
 
         return (
-            <Fragment>
+            <div className='wishlist-parent'>
                 <input type='submit'
-                    className='kk-button'
+                    className='kk-button wishlist-button-center'
                     value={isShowingWishlist ? 'Hide Wishlist' : 'Show Wishlist'}
                     onClick={isShowingWishlist ? this.handleHideWishlist : this.handleShowWishlist}
                 />
@@ -120,7 +119,7 @@ class MyKK extends Component {
                         Wishlist is hidden. Click the 'Show Wishlist' button to see it!
                     </div>
                 }
-            </Fragment>
+            </div>
         )
     }
 
@@ -139,12 +138,6 @@ class MyKK extends Component {
             this.gotWishlistResponse,
             this.gotWishlistError
         )
-
-        api.getSentiment(
-            username,
-            this.gotSentimentResponse,
-            this.gotSentimentError
-        )
     }
 
     populateWishlistDetails = (wishlistArray) => {
@@ -159,26 +152,12 @@ class MyKK extends Component {
         if (err === '') {
             this.populateWishlistDetails(message)
         } else {
-            this.gotError(err)
+            alert(err)
         }
     }
 
     gotWishlistError = (err) => {
         this.setState({ isWishlistLoaded: true })
-        alert(err)
-    }
-
-    gotSentimentResponse = (message, err) => {
-        this.setState({ isSentimentLoaded: true })
-        if (err === '') {
-            this.populateSentimentDetails(message)
-        } else {
-            this.gotError(err)
-        }
-    }
-
-    gotSentimentError = (err) => {
-        this.setState({ isSentimentLoaded: true })
         alert(err)
     }
 

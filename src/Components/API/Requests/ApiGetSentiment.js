@@ -13,36 +13,23 @@ class ApiGetSentiment {
         fetch(this.apiURL + RESOURCE + '?user=' + username, {
             method: 'GET',
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                'Accept': 'text/plain',
                 'Authorization': 'Bearer ' + token
             }
         })
             .then(response => {
                 if (response.ok) {
-                    return response.json()
+                    return response.text()
+                } else if (response.status === 404) {
+                    return ''
                 } else {
                     throw new Error(response.status + ' : ' + response.statusText + ' ' + JSON.stringify(response))
                 }
             })
-            .then(data => {
-                this.processData(data, gotDataCallback)
+            .then(sentiment => {
+                gotDataCallback(sentiment)
             })
             .catch(error => gotErrorCallback(error.message))
-    }
-
-    processData = (data, gotDataCallback) => {
-        var sentiment = data.body
-        var err = data.status
-        switch(data.status) {
-            case '200':
-                err = ''
-                break
-            default:
-                sentiment = ''
-                break
-        }
-        gotDataCallback(sentiment, err)
     }
 }
 

@@ -112,9 +112,6 @@ class WishlistItem extends Component {
     gotUpdateResponse = (response, err) => {
         this.setState({ isUserUpdating: false })
         this.setState({ isSaving: false })
-        if (err !== '') {
-            this.gotError(err)
-        }
     }
 
     gotUpdateError = (err) => {

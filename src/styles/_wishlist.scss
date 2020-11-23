@@ -2,6 +2,14 @@
 .wishlist {
     width: 100%;
   }
+
+.wishlist-parent {
+    text-align: center;
+}
+
+.wishlist-button-center {
+    margin: auto;
+}
   
 .wishlist-item {
     text-align: center;
@@ -30,6 +38,23 @@
         margin-bottom: 0px;
         margin-top: 10px;
     }
+}
+
+.sentiment {
+    margin-bottom: 20px;
+}
+
+.sentiment-tutorial-text {
+    text-transform: none;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+}
+
+.sentiment-message-heading {
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .wishlist-comment {
