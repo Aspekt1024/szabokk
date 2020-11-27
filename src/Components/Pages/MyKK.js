@@ -141,15 +141,14 @@ class MyKK extends Component {
     }
 
     populateWishlistDetails = (wishlistArray) => {
-        var parsedWishlist = JSON.parse(wishlistArray)
-        for (var i in parsedWishlist) {
-            this.populateItem(parsedWishlist[i])
+        for (var i in wishlistArray) {
+            this.populateItem(wishlistArray[i])
         }
     }
 
     gotWishlistResponse = (message, err) => {
         this.setState({ isWishlistLoaded: true })
-        if (err === '') {
+        if (err === null) {
             this.populateWishlistDetails(message)
         } else {
             alert(err)

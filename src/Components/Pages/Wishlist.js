@@ -79,18 +79,17 @@ class Wishlist extends Component {
     }
 
     populateWishlistDetails = (wishlistArray) => {
-        var parsedWishlist = JSON.parse(wishlistArray)
-        for (var i in parsedWishlist) {
-            this.populateItem(parsedWishlist[i])
+        for (var i in wishlistArray) {
+            this.populateItem(wishlistArray[i])
         }
     }
 
     gotWishlistResponse = (message, err) => {
         this.setState({ isLoading: false })
-        if (err === '') {
+        if (err === null) {
             this.populateWishlistDetails(message)
         } else {
-            this.gotError(err)
+            alert(JSON.stringify(err))
         }
     }
 

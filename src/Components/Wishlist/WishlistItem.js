@@ -65,7 +65,7 @@ class WishlistItem extends Component {
                                         {storedDetails.link === '' ?
                                             <label></label>
                                         :
-                                            <a href={storedDetails.link} target='_blank'>(link)</a>
+                                            <span>(link)</span>
                                         }
                                     </a>
                                 </div>
@@ -97,10 +97,12 @@ class WishlistItem extends Component {
 
         var pattern = /https?:\/\/\w+.\w+/g
         var details = this.state.itemDetails
-        var found = details.link.match(pattern)
-        if (found == null || found ==='') {
-            details.link = 'http://' + details.link
-            this.setState({ itemDetails: details })
+        if (details.link !== '') {
+            var found = details.link.match(pattern)
+            if (found == null || found ==='') {
+                details.link = 'http://' + details.link
+                this.setState({ itemDetails: details })
+            }
         }
 
         this.setState({ isSaving: true })
